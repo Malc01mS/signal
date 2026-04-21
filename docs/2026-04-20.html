@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal — Issue #1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0a;
+      color: #d8d8d8;
+      font-family: 'Lora', serif;
+      font-size: 16px;
+      line-height: 1.78;
+      padding: 48px 24px 80px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* MASTHEAD */
+    .masthead {
+      margin-bottom: 48px;
+    }
+
+    .masthead-wordmark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #d8d8d8;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .masthead-meta {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #6b6b6b;
+      margin-bottom: 20px;
+    }
+
+    .amber-rule {
+      height: 1px;
+      background: #c9a84c;
+      width: 100%;
+    }
+
+    /* SECTION HEADERS */
+    .section-header {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-variant: small-caps;
+      color: #6b6b6b;
+      margin-bottom: 4px;
+      margin-top: 48px;
+    }
+
+    .section-amber-underline {
+      height: 1px;
+      background: #c9a84c;
+      width: 32px;
+      margin-bottom: 24px;
+    }
+
+    /* MACRO SIGNAL */
+    .macro-signal-body {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      line-height: 1.78;
+      color: #d8d8d8;
+    }
+
+    .macro-signal-body p + p {
+      margin-top: 1.1em;
+    }
+
+    /* PICK CARDS */
+    .pick-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 22px 24px;
+      margin-bottom: 16px;
+      background: #111111;
+    }
+
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .card-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .type-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      color: #6b6b6b;
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    .pillar-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #444;
+    }
+
+    .card-link {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: #c9a84c;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .card-link:hover { text-decoration: underline; }
+
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #e8e8e8;
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+
+    .card-byline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .card-summary {
+      font-family: 'Lora', serif;
+      font-size: 0.93rem;
+      line-height: 1.72;
+      color: #c0c0c0;
+      margin-bottom: 14px;
+    }
+
+    .card-divider {
+      border: none;
+      border-top: 1px dashed #222;
+      margin-bottom: 12px;
+    }
+
+    .card-indicator {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem;
+      color: #c9a84c;
+      line-height: 1.5;
+    }
+
+    .card-indicator::before {
+      content: '→ ';
+    }
+
+    /* LONG GAME */
+    .long-game-card {
+      border: 1px solid #2a2218;
+      border-radius: 4px;
+      padding: 28px 28px;
+      margin-bottom: 16px;
+      background: #0f0e0b;
+    }
+
+    .long-game-card .card-title {
+      font-size: 1.15rem;
+    }
+
+    .long-game-card .card-summary {
+      font-size: 0.97rem;
+    }
+
+    /* WEALTH & STRUCTURE */
+    .wealth-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 18px 22px;
+      margin-bottom: 12px;
+      background: #111111;
+    }
+
+    /* FEEDBACK */
+    .feedback-section {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid #1e1e1e;
+    }
+
+    .feedback-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      line-height: 1.6;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #444;
+      font-style: italic;
+      padding: 16px 0;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 480px) {
+      body { padding: 32px 16px 60px; }
+      .masthead-wordmark { font-size: 2.4rem; }
+      .pick-card, .long-game-card { padding: 18px 16px; }
+      .card-meta-row { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead-wordmark">Signal</div>
+    <div class="masthead-meta">Issue #1 &nbsp;&middot;&nbsp; April 20, 2026</div>
+    <div class="amber-rule"></div>
+  </header>
+
+  <!-- MACRO SIGNAL -->
+  <section>
+    <div class="section-header">Macro Signal</div>
+    <div class="section-amber-underline"></div>
+    
+      <p class="empty-state">No macro signal generated this week.</p>
+    
+  </section>
+
+  <!-- HIGH-ALPHA PICKS -->
+  
+  <section>
+    <div class="section-header">High-Alpha Picks</div>
+    <div class="section-amber-underline"></div>
+
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">Macro/Capital Markets</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2604.09663v2" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">JFR-rg: A New Macroeconomic Framework for High-Debt, Low-Growth Economies under Financial Repression</div>
+
+      <div class="card-byline">
+        
+        
+          Hirofumi Wakimoto
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Wakimoto formalizes Japan's empirical puzzle—how 240% debt-to-GDP coexists with GDP growth, 2.6% unemployment, and no bond crisis—through a 'financial repression r-g' model that makes epsilon (inflation minus natural rate) directly observable via FRED. The framework introduces three mechanisms: the Debt Sustainability Corridor (stable regions in repression/growth space), the Normalization Ratchet (showing temporary policy errors lock in permanently higher debt paths), and the Captive Financial System parameter (quantifying domestic capital's forced absorption). This isn't just Japan description—it's a structural toolkit for understanding why r<g can persist when central banks control yield curves and demographics/regulation trap savings domestically, directly applicable to analyzing US/EU fiscal sustainability under similar conditions.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If financial repression (pi > r) remains institutionally embedded in developed markets, sovereign debt sustainability extends far beyond consensus thresholds—watch for policy normalization attempts (rate hikes, QT) triggering the Ratchet effect rather than smooth reversions. Counterfactual: if epsilon narrows durably (real rates rise structurally), Japan's model suggests abrupt non-linear breaks rather than gradual adjustment.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">Geopolitics & Energy Architecture</span>
+        </div>
+        
+        <a class="card-link" href="https://newsletter.doomberg.com/p/axis-and-allies" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Axis & Allies</div>
+
+      <div class="card-byline">
+        
+        
+        Doomberg&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Doomberg frames how China could secure Iranian energy flows and neutralize Western sanctions leverage without military engagement—essentially weaponizing energy demand as geopolitical insurance. The mechanism: China absorbs sanctioned Iranian crude at discount, denies the West the ability to isolate Tehran economically, and forces the U.S. into either kinetic escalation (costly, regionally destabilizing) or accepting reduced strategic optionality. This extends Lyn Alden's energy-as-hard-asset thesis into wartime game theory—commodity flows as sovereignty infrastructure. If China commits to this path, watch for expanded yuan-denominated oil contracts and secondary sanctions enforcement collapse as leading indicators.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If China backstops Iranian crude at scale, U.S. sanctions become theater rather than leverage. Watch renminbi swap line expansion with Gulf states and tanker dark-fleet activity as real-time proxies for commitment. Counterfactual: If China stays neutral, Iran's fiscal runway compresses fast—watch rial stability and domestic unrest as the tell.</div>
+      
+    </article>
+    
+    
+  </section>
+  
+
+  <!-- THE LONG GAME -->
+  
+  <section>
+    <div class="section-header">The Long Game</div>
+    <div class="section-amber-underline"></div>
+
+    <article class="long-game-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">Monetary Policy & Capital Markets</span>
+        </div>
+        
+        <a class="card-link" href="https://www.federalreserve.gov/econres/feds/a-users-guide-to-reducing-the-federal-reserves-balance-sheet.htm" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">FEDS Paper: A User's Guide to Reducing the Federal Reserve's Balance Sheet</div>
+
+      <div class="card-byline">
+        
+        
+        FRB: Working Papers&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Fed staff paper co-authored by Stephen Miran (Trump's designated CEA chair) provides operational framework for balance sheet reduction—covering pace calibration, reserve scarcity indicators, and interaction with rate policy. Mechanistically maps how QT transmits through reserve supply, repo markets, and term premiums. Miran's involvement signals this isn't academic; it's a potential playbook for 2025-26 Fed policy coordination with Treasury. The timing—published as Miran transitions from Fed research to White House economic policy—suggests balance sheet normalization may accelerate or shift structure under political coordination pressure.</div>
+
+      
+      <div class="card-summary" style="font-style: italic; color: #888; margin-bottom: 14px;">
+        Stephen Miran—Trump's incoming CEA chair—co-authored this Fed paper on QT mechanics weeks before taking office, signaling potential balance sheet policy direction.
+      </div>
+      
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If Miran imports this framework into CEA/Treasury coordination, watch: (1) Fed RRP facility drawdowns accelerating as reserve scarcity test, (2) term premium expansion in 10Y+ Treasuries as QT pace holds/increases, (3) repo rate volatility spikes as early warning of reserve floor proximity. Counterfactual: Fed pauses QT earlier than projected—implies Miran's influence constrained or Treasury/Fed coordination failed.</div>
+      
+    </article>
+  </section>
+  
+
+  <!-- WEALTH & STRUCTURE -->
+  
+
+  <!-- FEEDBACK -->
+  <div class="feedback-section">
+    <p class="feedback-text">
+      Reply to this email with your notes. They'll shape next week's brief.<br>
+      To log feedback manually: <code style="font-size:0.75rem; color:#555;">python -c "from feedback import append_feedback; append_feedback(input('Feedback: '))"</code>
+    </p>
+  </div>
+
+</div>
+</body>
+</html>
