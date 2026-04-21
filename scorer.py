@@ -1,9 +1,18 @@
 import json
 import os
+import re
 import sys
 import anthropic
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from config import PROFILE, PILLARS, SCORING_THRESHOLDS
+
+
+def _extract_json(text: str) -> str:
+    """Strip markdown code fences if Claude wraps its response."""
+    match = re.search(r"```(?:json)?\s*([\s\S]*?)\s*```", text)
+    if match:
+        return match.group(1).strip()
+    return text.strip()
 
 def _client():
     return anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
@@ -71,12 +80,12 @@ def stage1_filter(items: list[dict]) -> list[dict]:
     ])
     msg = _client().messages.create(
         model="claude-sonnet-4-5",
-        max_tokens=2000,
+        max_tokens=8000,
         system=STAGE1_SYSTEM,
         messages=[{"role": "user", "content": f"Filter this batch:\n{batch}"}],
     )
     try:
-        results = json.loads(msg.content[0].text)
+        results = json.loads(_extract_json(msg.content[0].text))
         shortlist = []
         for r in results:
             if r.get("pass") and r["index"] < len(items):
@@ -106,7 +115,7 @@ def stage2_score(item: dict) -> dict | None:
             system=STAGE2_SYSTEM,
             messages=[{"role": "user", "content": content}],
         )
-        scored = json.loads(msg.content[0].text)
+        scored = json.loads(_extract_json(msg.content[0].text))
         scored["raw_item"] = item
         return scored
     except Exception as e:

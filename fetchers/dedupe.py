@@ -21,9 +21,17 @@ def item_hash(item: dict) -> str:
     return hashlib.md5(key.encode()).hexdigest()
 
 
-def filter_new(items: list[dict]) -> list[dict]:
+def filter_new(items: list[dict]) -> tuple[list[dict], set]:
+    """Return (new_items, hashes_to_commit).
+    Caller must call commit_seen() after a successful publish to persist."""
     seen = load_seen()
     new_items = [i for i in items if item_hash(i) not in seen]
-    seen.update(item_hash(i) for i in new_items)
+    pending = {item_hash(i) for i in new_items}
+    return new_items, pending
+
+
+def commit_seen(pending: set):
+    """Persist new item hashes only after a successful run."""
+    seen = load_seen()
+    seen.update(pending)
     save_seen(seen)
-    return new_items

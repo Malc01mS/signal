@@ -7,7 +7,7 @@ from fetchers.semantic_scholar import fetch_trending_papers
 from fetchers.arxiv import fetch_arxiv
 from fetchers.hackernews import fetch_hackernews
 from fetchers.rss import fetch_rss_items
-from fetchers.dedupe import filter_new
+from fetchers.dedupe import filter_new, commit_seen
 from scorer import score_all
 from composer import compose
 from renderer import render
@@ -47,7 +47,7 @@ def run():
         print("  No candidates fetched — check fetcher errors above. Aborting.", flush=True)
         return
 
-    candidates = filter_new(candidates)
+    candidates, pending_seen = filter_new(candidates)
     print(f"  After dedupe: {len(candidates)}", flush=True)
 
     if not candidates:
@@ -69,10 +69,11 @@ def run():
     public_url = publish(html_path)
     print(f"  Published: {public_url}", flush=True)
 
+    commit_seen(pending_seen)  # persist after successful publish, before email
+    increment_issue(issue)
+
     send(public_url, issue_number=issue)
     print(f"  Email sent.", flush=True)
-
-    increment_issue(issue)
     print(f"\n=== Done ===", flush=True)
 
 
