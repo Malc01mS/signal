@@ -1,0 +1,9 @@
+output/
+.env
+*.pyc
+__pycache__/
+data/seen_items.json
+.venv/
+logs/
+*.log
+.DS_Store
