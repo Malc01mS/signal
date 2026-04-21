@@ -1,8 +1,12 @@
 import json
+import os
+import sys
 import anthropic
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from config import PROFILE, PILLARS, SCORING_THRESHOLDS
 
-client = anthropic.Anthropic()
+def _client():
+    return anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
 
 STAGE1_SYSTEM = f"""
 You are a content filter for Signal, a weekly intelligence brief.
@@ -65,7 +69,7 @@ def stage1_filter(items: list[dict]) -> list[dict]:
         }
         for i, item in enumerate(items)
     ])
-    msg = client.messages.create(
+    msg = _client().messages.create(
         model="claude-sonnet-4-5",
         max_tokens=2000,
         system=STAGE1_SYSTEM,
@@ -96,7 +100,7 @@ def stage2_score(item: dict) -> dict | None:
         "pillar_hint": item.get("pillar_hint"),
     })
     try:
-        msg = client.messages.create(
+        msg = _client().messages.create(
             model="claude-sonnet-4-5",
             max_tokens=600,
             system=STAGE2_SYSTEM,
@@ -111,16 +115,19 @@ def stage2_score(item: dict) -> dict | None:
 
 
 def score_all(items: list[dict]) -> list[dict]:
-    print(f"Stage 1: filtering {len(items)} candidates...")
+    print(f"Stage 1: filtering {len(items)} candidates...", flush=True)
     shortlist = stage1_filter(items)
-    print(f"Stage 1: {len(shortlist)} passed to Stage 2")
+    print(f"Stage 1: {len(shortlist)} passed to Stage 2", flush=True)
 
     scored = []
-    for item in shortlist:
-        result = stage2_score(item)
-        if result and result.get("total", 0) >= SCORING_THRESHOLDS["include"]:
-            scored.append(result)
+    with ThreadPoolExecutor(max_workers=5) as pool:
+        futures = {pool.submit(stage2_score, item): item for item in shortlist}
+        for i, future in enumerate(as_completed(futures), 1):
+            result = future.result()
+            print(f"  Stage 2: scored {i}/{len(shortlist)}", flush=True)
+            if result and result.get("total", 0) >= SCORING_THRESHOLDS["include"]:
+                scored.append(result)
 
     scored.sort(key=lambda x: x.get("total", 0), reverse=True)
-    print(f"Stage 2: {len(scored)} items scored above threshold")
+    print(f"Stage 2: {len(scored)} items scored above threshold", flush=True)
     return scored

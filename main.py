@@ -1,7 +1,7 @@
 import json
 import pathlib
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv(dotenv_path=pathlib.Path(__file__).parent / ".env", override=True)
 
 from fetchers.semantic_scholar import fetch_trending_papers
 from fetchers.papers_with_code import fetch_trending as fetch_pwc
@@ -32,19 +32,19 @@ def increment_issue(n: int):
 
 def run():
     issue = get_issue_number()
-    print(f"\n=== Signal Issue #{issue} ===\n")
+    print(f"\n=== Signal Issue #{issue} ===\n", flush=True)
 
-    print("Fetching sources...")
+    print("Fetching sources...", flush=True)
     candidates = (
         fetch_trending_papers() +
         fetch_pwc() +
         fetch_top_papers() +
         fetch_rss_items()
     )
-    print(f"  Total candidates: {len(candidates)}")
+    print(f"  Total candidates: {len(candidates)}", flush=True)
 
     candidates = filter_new(candidates)
-    print(f"  After dedupe: {len(candidates)}")
+    print(f"  After dedupe: {len(candidates)}", flush=True)
 
     feedback_ctx = get_recent_feedback(n=3)
     scored = score_all(candidates)
@@ -52,16 +52,16 @@ def run():
     brief = compose(scored, feedback_context=feedback_ctx)
 
     html_path = render(brief, issue_number=issue)
-    print(f"  HTML rendered: {html_path}")
+    print(f"  HTML rendered: {html_path}", flush=True)
 
     public_url = publish(html_path)
-    print(f"  Published: {public_url}")
+    print(f"  Published: {public_url}", flush=True)
 
     send(public_url, issue_number=issue)
-    print(f"  Email sent.")
+    print(f"  Email sent.", flush=True)
 
     increment_issue(issue)
-    print(f"\n=== Done ===")
+    print(f"\n=== Done ===", flush=True)
 
 
 if __name__ == "__main__":

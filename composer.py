@@ -1,8 +1,10 @@
 import anthropic
 import json
+import os
 from config import MAX_ITEMS_PER_PILLAR, MAX_TOTAL_ITEMS, PILLARS
 
-client = anthropic.Anthropic()
+def _client():
+    return anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
 
 
 def compose(scored_items: list[dict], feedback_context: str = "") -> dict:
@@ -46,7 +48,7 @@ understanding right now. Assume the reader is already tracking headlines.
 Go to the structural level. No fluff. Return plain text only.
 {f'Recent feedback context: {feedback_context}' if feedback_context else ''}
 """
-    msg = client.messages.create(
+    msg = _client().messages.create(
         model="claude-sonnet-4-5",
         max_tokens=400,
         messages=[{"role": "user", "content": prompt}],
