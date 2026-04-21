@@ -2,7 +2,7 @@ import json
 import hashlib
 from pathlib import Path
 
-STORE_PATH = Path("data/seen_items.json")
+STORE_PATH = Path(__file__).parent.parent / "data" / "seen_items.json"
 
 
 def load_seen() -> set:

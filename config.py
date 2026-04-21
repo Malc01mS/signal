@@ -44,16 +44,17 @@ SEMANTIC_SCHOLAR_KEYWORDS = [
 ]
 
 RSS_SOURCES = [
-    "https://lynalden.substack.com/feed",
-    "https://bhuangfinance.substack.com/feed",
-    "https://doomberg.substack.com/feed",
-    "https://noahpinion.substack.com/feed",
-    "https://worksinprogress.co/feed",
-    "https://palladiummag.com/feed",
-    "https://www.piratewires.com/feed",
-    "https://www.hoover.org/news/hoover-daily-report/rss.xml",
-    "https://www.nber.org/rss/new_working_papers_rss.xml",
-    "https://news.ycombinator.com/rss",
+    # Economics & finance
+    "https://doomberg.substack.com/feed",           # Doomberg — energy, commodities
+    "https://noahpinion.substack.com/feed",         # Noah Smith — economics
+    "https://marginalrevolution.com/feed",          # Tyler Cowen — economics, ideas
+    "https://www.federalreserve.gov/feeds/working_papers.xml",  # Fed research
+    # Geopolitics & policy
+    "https://palladiummag.com/feed",               # Palladium — state capacity, geopolitics
+    "https://www.project-syndicate.org/rss",        # Project Syndicate — global economics
+    "https://www.brookings.edu/feed/",              # Brookings — policy research
+    # Long-form / ideas
+    "https://astralcodexten.substack.com/feed",     # Scott Alexander — reasoning, ideas
 ]
 
 SCORING_THRESHOLDS = {

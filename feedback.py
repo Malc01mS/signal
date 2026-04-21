@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from datetime import datetime
 
-LOG_PATH = Path("data/feedback_log.json")
+LOG_PATH = Path(__file__).parent / "data" / "feedback_log.json"
 
 
 def append_feedback(text: str, issue_date: str = None):

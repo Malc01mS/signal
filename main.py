@@ -4,8 +4,8 @@ from dotenv import load_dotenv
 load_dotenv(dotenv_path=pathlib.Path(__file__).parent / ".env", override=True)
 
 from fetchers.semantic_scholar import fetch_trending_papers
-from fetchers.papers_with_code import fetch_trending as fetch_pwc
-from fetchers.ssrn import fetch_top_papers
+from fetchers.arxiv import fetch_arxiv
+from fetchers.hackernews import fetch_hackernews
 from fetchers.rss import fetch_rss_items
 from fetchers.dedupe import filter_new
 from scorer import score_all
@@ -15,7 +15,7 @@ from publisher import publish
 from emailer import send
 from feedback import get_recent_feedback
 
-ISSUE_FILE = pathlib.Path("data/issue.json")
+ISSUE_FILE = pathlib.Path(__file__).parent / "data" / "issue.json"
 
 
 def get_issue_number() -> int:
@@ -36,18 +36,30 @@ def run():
 
     print("Fetching sources...", flush=True)
     candidates = (
-        fetch_trending_papers() +
-        fetch_pwc() +
-        fetch_top_papers() +
-        fetch_rss_items()
+        fetch_rss_items() +
+        fetch_arxiv() +
+        fetch_hackernews() +
+        fetch_trending_papers()
     )
     print(f"  Total candidates: {len(candidates)}", flush=True)
+
+    if not candidates:
+        print("  No candidates fetched — check fetcher errors above. Aborting.", flush=True)
+        return
 
     candidates = filter_new(candidates)
     print(f"  After dedupe: {len(candidates)}", flush=True)
 
+    if not candidates:
+        print("  All candidates already seen this week. Nothing new to score.", flush=True)
+        return
+
     feedback_ctx = get_recent_feedback(n=3)
     scored = score_all(candidates)
+
+    if not scored:
+        print("  No items scored above threshold. Brief would be empty — aborting.", flush=True)
+        return
 
     brief = compose(scored, feedback_context=feedback_ctx)
 
