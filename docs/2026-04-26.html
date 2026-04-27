@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal — Issue #3</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0a;
+      color: #d8d8d8;
+      font-family: 'Lora', serif;
+      font-size: 16px;
+      line-height: 1.78;
+      padding: 48px 24px 80px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* MASTHEAD */
+    .masthead {
+      margin-bottom: 48px;
+    }
+
+    .masthead-wordmark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #d8d8d8;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .masthead-meta {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #6b6b6b;
+      margin-bottom: 20px;
+    }
+
+    .amber-rule {
+      height: 1px;
+      background: #c9a84c;
+      width: 100%;
+    }
+
+    /* SECTION HEADERS */
+    .section-header {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-variant: small-caps;
+      color: #6b6b6b;
+      margin-bottom: 4px;
+      margin-top: 48px;
+    }
+
+    .section-amber-underline {
+      height: 1px;
+      background: #c9a84c;
+      width: 32px;
+      margin-bottom: 24px;
+    }
+
+    /* MACRO SIGNAL */
+    .macro-signal-body {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      line-height: 1.78;
+      color: #d8d8d8;
+    }
+
+    .macro-signal-body p + p {
+      margin-top: 1.1em;
+    }
+
+    /* PICK CARDS */
+    .pick-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 22px 24px;
+      margin-bottom: 16px;
+      background: #111111;
+    }
+
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .card-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .type-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      color: #6b6b6b;
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    .pillar-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #444;
+    }
+
+    .card-link {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: #c9a84c;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .card-link:hover { text-decoration: underline; }
+
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #e8e8e8;
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+
+    .card-byline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .card-summary {
+      font-family: 'Lora', serif;
+      font-size: 0.93rem;
+      line-height: 1.72;
+      color: #c0c0c0;
+      margin-bottom: 14px;
+    }
+
+    .card-divider {
+      border: none;
+      border-top: 1px dashed #222;
+      margin-bottom: 12px;
+    }
+
+    .card-indicator {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem;
+      color: #c9a84c;
+      line-height: 1.5;
+    }
+
+    .card-indicator::before {
+      content: '→ ';
+    }
+
+    /* LONG GAME */
+    .long-game-card {
+      border: 1px solid #2a2218;
+      border-radius: 4px;
+      padding: 28px 28px;
+      margin-bottom: 16px;
+      background: #0f0e0b;
+    }
+
+    .long-game-card .card-title {
+      font-size: 1.15rem;
+    }
+
+    .long-game-card .card-summary {
+      font-size: 0.97rem;
+    }
+
+    /* WEALTH & STRUCTURE */
+    .wealth-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 18px 22px;
+      margin-bottom: 12px;
+      background: #111111;
+    }
+
+    /* FEEDBACK */
+    .feedback-section {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid #1e1e1e;
+    }
+
+    .feedback-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      line-height: 1.6;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #444;
+      font-style: italic;
+      padding: 16px 0;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 480px) {
+      body { padding: 32px 16px 60px; }
+      .masthead-wordmark { font-size: 2.4rem; }
+      .pick-card, .long-game-card { padding: 18px 16px; }
+      .card-meta-row { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead-wordmark">Signal</div>
+    <div class="masthead-meta">Issue #3 &nbsp;&middot;&nbsp; April 26, 2026</div>
+    <div class="amber-rule"></div>
+  </header>
+
+  <!-- MACRO SIGNAL -->
+  <section>
+    <div class="section-header">Macro Signal</div>
+    <div class="section-amber-underline"></div>
+    
+      <p class="empty-state">No macro signal generated this week.</p>
+    
+  </section>
+
+  <!-- HIGH-ALPHA PICKS -->
+  
+  <section>
+    <div class="section-header">High-Alpha Picks</div>
+    <div class="section-amber-underline"></div>
+
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">Macro/Capital Markets</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2604.09663v2" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">JFR-rg: A New Macroeconomic Framework for High-Debt, Low-Growth Economies under Financial Repression</div>
+
+      <div class="card-byline">
+        
+        
+          Hirofumi Wakimoto
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">New formalization of how Japan stabilized 240% debt/GDP through financial repression: epsilon_t (inflation minus natural rate) acts as observable bias keeping r < g. Introduces three mechanisms: the Debt Sustainability Corridor (epsilon-growth space where stability holds), Normalization Ratchet (shows temporary policy errors lock in higher debt paths permanently via path dependence), and Captive Financial System parameter (quantifies domestic bond absorption capacity). Directly relevant to Malcolm's Lyn Alden debt-cycle framing: this is the first rigorous model of how advanced economies can run hot fiscal without crisis IF they control their nominal rate structure—and what breaks when they can't. The exchange-rate non-linearity and corridor boundaries give falsifiable thresholds for when repression fails.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If epsilon compression continues (BOJ tightening while inflation cools), Japan exits the corridor from below—watch JGB curve steepening past 150bp 2s10s as the tripwire. Counterfactual: if nominal GDP growth sustains above 3% while epsilon stays positive, the model says debt stabilizes without crisis even at 250% debt/GDP—making Japan the proof-case that fiscal dominance can persist longer than markets price.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">Energy Security / Geopolitical Risk</span>
+        </div>
+        
+        <a class="card-link" href="https://newsletter.doomberg.com/p/flashing-orange" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Flashing Orange</div>
+
+      <div class="card-byline">
+        
+        
+        Doomberg&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Doomberg provides a structural cheat sheet for European natural gas vulnerability: storage levels critically low despite mild winter demand destruction, alternative supply routes (LNG terminals, Norwegian pipelines) operating near capacity limits, and the end of Ukrainian transit creating step-function risk. The piece exposes how apparent price stability masks physical system fragility—Europe has been eating into buffer capacity while maintaining industrial consumption cuts that won't absorb another supply shock. Key mechanism: the gap between financial gas prices (which reflect fungible global LNG) and physical delivery constraints (which are infrastructure-bound and politically constrained) is widening into a potential crisis catalyst.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If storage doesn't rebuild to 80%+ by October, watch German industrial production and BASF-type energy hedging announcements as leading indicators of rationing probability. Counterfactual: unusually warm spring/summer or major Chinese demand destruction would relieve pressure, signaled by TTF futures curve flattening below $12/MMBtu.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">Macro/Capital Markets</span>
+        </div>
+        
+        <a class="card-link" href="https://www.federalreserve.gov/econres/feds/monetary-policy-under-multiple-financing-constraints.htm" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">FEDS Paper: Monetary Policy under Multiple Financing Constraints</div>
+
+      <div class="card-byline">
+        
+        
+        FRB: Working Papers&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Fed researchers demonstrate that firms facing multiple financing constraints (debt covenants, collateral requirements, cash flow tests) respond asymmetrically to monetary policy: tightening transmits strongly because the *tightest* constraint binds first and cascades, while easing transmits weakly because only the *loosest* constraint relaxes. Empirical evidence from U.S. firm data confirms borrowing/investment contracts sharply when rates rise but expands sluggishly when rates fall. Embedded in a New Keynesian model, this suggests the Fed's tightening since 2022 had outsized real effects, but the eventual easing cycle will disappoint growth expectations—critical for positioning around the 'soft landing' consensus and understanding why credit conditions may stay tight even as policy rate cuts begin.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If this asymmetry holds structurally, watch for corporate capex and leveraged buyout activity to lag policy easing by 6-12 months longer than historical averages suggest. Counterfactual: if credit spreads compress rapidly post-first-cut, the multi-constraint thesis is weaker than traditional models.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">Labor market structure / Strategic frameworks</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2604.19987v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Routine Work, Firm Boundaries, and the Rise of Local Supplier Entry</div>
+
+      <div class="card-byline">
+        
+        
+          Duha T. Altindag, Nabamita Dutta, John M. Nunley
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">U.S. saw 40% more business applications 2005-2019 but half the conversion to employer firms. Core mechanism: routine-cognitive work (structured, measurable) became outsourceable to local micro-suppliers without requiring employment relationships. Higher baseline routine-work regions saw 27.8 more applications per 100k residents. Entry concentrated in micro-establishments with no quality improvement—evidence this is boundary redrawing (firms contracting out structured tasks) rather than innovation or gig displacement. Directly relevant as AI now threatens to make *more* cognitive work routine/deliverable-based.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If AI productizes more cognitive tasks into deliverable-based contracts, watch micro-business formation spike without corresponding employer firm growth or startup quality gains. Counterfactual: if coordination costs fall enough, re-integration into larger firms instead.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">AI/Technology</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2604.18373v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Dissecting AI Trading: Behavioral Finance and Market Bubbles</div>
+
+      <div class="card-byline">
+        
+        
+          Shumiao Ouyang, Pengfei Sui
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Experimental markets populated entirely by LLM agents reproduce classic bubble dynamics from human behavioral finance literature—disposition effect, recency bias, extrapolative beliefs—but with a critical difference: the biases are prompt-tunable. Researchers demonstrate that targeted interventions in reasoning templates can causally amplify or suppress bubble magnitude, meaning agent-driven markets won't just replicate human irrationality, they'll systematize and potentially accelerate it at architectural speed. The paper bridges AI capability scaling with market microstructure fragility in a way that hasn't been formalized yet.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If LLM trading agents scale into retail or institutional use without friction-inducing architectural constraints, watch for autocorrelation spikes in high-frequency volatility regimes and asymmetric drawdowns during sentiment shifts. Counterfactual: regulatory circuit-breakers targeting 'autonomous agent volume' as a distinct category.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">Energy Transition / Industrial Policy</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2604.14257v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Mapping the causal structure of price formation in Texas's transitioning electricity market</div>
+
+      <div class="card-byline">
+        
+        
+          Shiva Madadkhani, Nils Sturma, Mathias Drton
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Causal discovery analysis of ERCOT wholesale markets shows wind generation has displaced natural gas as the dominant price determinant—effect size 3x larger. Wind reduces local prices but redistributes congestion costs regionally in seasonal patterns, exposing structural mismatch between where electrons generate vs. where demand concentrates. Natural gas retains causal relevance but role is modest and benchmark pricing shifts over time. This inverts standard energy investor mental model (gas sets marginal price) and suggests storage/transmission become the binding constraints, not fuel cost.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If wind's price dominance continues scaling, watch basis spreads between West Texas wind zones and Houston load centers widen during low-wind/high-demand periods. Transmission expansion becomes the choke point for renewable penetration economics—utilities with build rights capture spread, not wind developers. Counterfactual: if new gas peakers get permitted faster than transmission, gas reasserts price-setting during volatility windows.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">Capital Markets Structure</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2603.14491v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Private Credit Markets Theory, Evidence, and Emerging Frontiers</div>
+
+      <div class="card-byline">
+        
+        
+          Jiacheng Zou
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Academic survey documenting private credit's 12x growth since 2010 by explaining its distinctive lending technology: delegated monitoring of opaque PE-backed borrowers through soft-information processing that banks can't replicate post-Dodd-Frank. Key structural finding: while direct lenders extract persistent spread premiums over BSL markets (the 'technology' works), average fund-level risk-adjusted returns are largely captured by GP fees, not LPs—a wedge that matters as institutional allocators chase yield into illiquid structures. Framework connects incomplete contracting theory to why covenant-lite structures dominate and why this shadow banking layer doesn't (yet) pose systemic risk despite size.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If fee compression doesn't occur as the market matures, institutional capital will demand structural changes (co-investment rights, fee tiers) or rotate toward liquid credit—watch GP/LP alignment innovations and whether '25-'27 vintage funds show margin pressure. Counterfactual: if spreads compress toward BSL without fee adjustment, it confirms commoditization and signals LP return disappointment cycle begins 2027-2028.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">Technology / Capital Markets</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2602.02607v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">The Innovation Tax: Generative AI Adoption, Productivity Paradox, and Systemic Risk in the U.S. Banking Sector</div>
+
+      <div class="card-byline">
+        
+        
+          Tatsuru Kikuchi
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Academic paper uses Fed regulatory data + SEC filings (809 banks, 2018-2025) to measure GenAI adoption impact. Finds "productivity paradox": AI-adopting banks were already high performers, but GenAI implementation itself caused a 428bp ROE decline (517bp for smallest quartile) through integration costs. Uses ChatGPT Nov 2022 launch as exogenous shock for causal identification via synthetic diff-in-diff. Matters because this is first dataset-backed mechanism showing *why* early AI adopters might underperform short-term despite being structurally stronger—integration tax hits small banks 4x harder, creating selection pressure favoring scale.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If integration tax thesis holds, expect continued regional bank M&A acceleration as sub-scale institutions cannot absorb GenAI capex/retraining costs. Watch Q2-Q3 2025 bank earnings for ROE compression among early AI adopters versus laggards—divergence confirms cost absorption phase. Counterfactual: if smaller banks maintain ROE parity, the productivity gains are faster than model predicts or cost structure is wrong.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">AI Industrial Policy / Technology</span>
+        </div>
+        
+        <a class="card-link" href="https://www.federalreserve.gov/econres/feds/ai-and-coder-employment-compiling-the-evidence.htm" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">FEDS Paper: AI and Coder Employment: Compiling the Evidence</div>
+
+      <div class="card-byline">
+        
+        
+        FRB: Working Papers&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Federal Reserve economists show aggregate coder employment growth decelerated sharply post-ChatGPT launch (Nov 2022), using O*NET-CPS linkage and controlling for industry-level shocks to isolate an occupation-specific effect. This is early empirical evidence that LLM productivity gains are already compressing labor demand in the most exposed knowledge work category—not theoretical, not survey-based, but showing up in CPS data within 18 months. For Malcolm: validates the AI deflationary labor thesis at the occupational level before it's priced into tech labor markets or widely acknowledged by founders still hiring aggressively.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If coder demand compression is real and durable, watch for: (1) wage growth deceleration in SWE roles lagging employment by 6-12mo, (2) venture-backed companies extending runway by downsizing eng teams without productivity loss, (3) coding bootcamp enrollment/completion as leading indicator. Counterfactual: if this is transitory, tech job postings for SWEs should re-accelerate by mid-2025 as AI tooling creates net-new product categories requiring more builders.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">Industrial policy / Trade structure</span>
+        </div>
+        
+        <a class="card-link" href="https://www.noahpinion.blog/p/no-america-is-not-in-a-stealth-manufacturing" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">No, America is not in a "stealth manufacturing boom"</div>
+
+      <div class="card-byline">
+        
+        
+        Noahpinion&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Noah Smith challenges the 'stealth manufacturing boom' narrative by arguing that tariffs are actively offsetting gains from CHIPS Act/IRA industrial policy. He likely provides data showing construction spending diverging from actual production output, export weakness, or capex not translating into employment/value-add. This matters to Malcolm because he's exposed to both AI semiconductor supply chain positioning AND macro Austrian/Chicago tension around protectionism. If tariffs structurally cancel fiscal industrial policy, the bet on domestic manufacturing capacity becomes a political trade, not an economic one—reshoring becomes a subsidy sink rather than competitive advantage.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If this thesis holds, watch capacity utilization rates and manufacturing PMI exports diverging from construction spending. Counterpoint: If utilization rises despite tariffs, the subsidy magnitude may overcome friction costs, validating a different industrial policy model entirely.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">Macro/Capital Markets</span>
+        </div>
+        
+        <a class="card-link" href="https://marginalrevolution.com/marginalrevolution/2026/04/will-ai-save-the-u-s-fiscal-situation.html?utm_source=rss&utm_medium=rss&utm_campaign=will-ai-save-the-u-s-fiscal-situation" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Will AI save the U.S. fiscal situation?</div>
+
+      <div class="card-byline">
+        
+        
+        Marginal REVOLUTION&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Cowen frames AI productivity gains as a direct fiscal solvency mechanism: 0.1pp extra productivity growth raises sustainable debt capacity by $1.3T and would justify 70bp lower Treasury yields if markets believed it. At 0.5pp (conservative AI estimate), the math implies material fiscal headroom even without spending cuts. This reframes the AI bull case from 'tech grows faster' to 'sovereigns can carry more debt because the denominator (GDP growth) expands.' It's a debt-cycle overlay on the AI infrastructure trade Malcolm already tracks—productivity as the variable that changes sovereign borrowing capacity, not just equity multiples.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If productivity acceleration shows up in BLS revisions over next 18 months, watch 10Y real yields compress vs. breakevens widening—market pricing in higher growth path. Counterfactual: if AI capex continues but productivity stats stay flat through 2025, fiscal crisis rhetoric intensifies and long-duration Treasuries sell off despite Fed cuts.</div>
+      
+    </article>
+    
+    
+  </section>
+  
+
+  <!-- THE LONG GAME -->
+  
+  <section>
+    <div class="section-header">The Long Game</div>
+    <div class="section-amber-underline"></div>
+
+    <article class="long-game-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">Monetary Plumbing & Fed Architecture</span>
+        </div>
+        
+        <a class="card-link" href="https://www.federalreserve.gov/econres/feds/a-users-guide-to-reducing-the-federal-reserves-balance-sheet.htm" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">FEDS Paper: A User's Guide to Reducing the Federal Reserve's Balance Sheet</div>
+
+      <div class="card-byline">
+        
+        
+        FRB: Working Papers&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">This Fed working paper provides operational mechanics for balance sheet normalization, covering reserve scarcity signals, repo market functioning under different reserve regimes, and the transmission mechanisms between QT pace and financial conditions. Critical because Miran's co-authorship telegraphs the incoming administration's likely approach to Fed balance sheet policy—expect hawkish QT rhetoric paired with technical arguments for maintaining 'ample reserves' to avoid 2019-style repo spikes. The paper essentially hands Malcolm the playbook for how Trump 2.0 will justify monetary tightening without explicitly pressuring Powell on rates.</div>
+
+      
+      <div class="card-summary" style="font-style: italic; color: #888; margin-bottom: 14px;">
+        Stephen Miran—Trump's incoming CEA chair—co-authored this Fed paper on QT mechanics weeks before taking office, signaling policy direction.
+      </div>
+      
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If Miran pushes this framework, watch overnight repo volatility and the spread between IOER and fed funds effective rate as leading indicators of reserve adequacy stress. A widening spread (>10-15bps sustained) would force Fed capitulation on QT pace regardless of political pressure—that's the counterfactual that breaks hawkish posturing.</div>
+      
+    </article>
+  </section>
+  
+
+  <!-- WEALTH & STRUCTURE -->
+  
+
+  <!-- FEEDBACK -->
+  <div class="feedback-section">
+    <p class="feedback-text">
+      Reply to this email with your notes. They'll shape next week's brief.<br>
+      To log feedback manually: <code style="font-size:0.75rem; color:#555;">python -c "from feedback import append_feedback; append_feedback(input('Feedback: '))"</code>
+    </p>
+  </div>
+
+</div>
+</body>
+</html>
