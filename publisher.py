@@ -4,15 +4,18 @@ from datetime import datetime
 import os
 
 
-def _build_index(issues: list[tuple[str, str]], base_url: str) -> str:
-    """Generate an index.html listing all issues newest-first."""
+def _build_index(issues: list[tuple[str, str, str]], base_url: str) -> str:
+    """Generate an index.html listing all issues newest-first.
+
+    issues: list of (date_str, url, issue_label) e.g. ("2026-05-10", "https://...", "Issue #4")
+    """
     rows = ""
-    for date_str, url in sorted(issues, reverse=True):
+    for date_str, url, issue_label in sorted(issues, reverse=True):
         try:
             label = datetime.strptime(date_str, "%Y-%m-%d").strftime("%B %-d, %Y")
         except Exception:
             label = date_str
-        rows += f'      <li><a href="{url}">Signal — {label}</a></li>\n'
+        rows += f'      <li><a href="{url}">{issue_label} &mdash; {label}</a></li>\n'
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -73,6 +76,7 @@ def publish(html_path: str) -> str:
 
     # Rebuild index.html from all docs/*.html files (excluding index itself)
     try:
+        import re as _re
         all_files = repo.get_contents("docs")
         issues = []
         for f in all_files:
@@ -80,7 +84,14 @@ def publish(html_path: str) -> str:
             if name == "index.html" or not name.endswith(".html"):
                 continue
             stem = name[:-5]  # strip .html
-            issues.append((stem, f"{base_url}/{name}"))
+            # Extract "Issue #N" from the file's <title> tag
+            try:
+                raw = f.decoded_content.decode("utf-8", errors="ignore")
+                m = _re.search(r"Issue #(\d+)", raw)
+                issue_label = f"Issue #{m.group(1)}" if m else "Signal"
+            except Exception:
+                issue_label = "Signal"
+            issues.append((stem, f"{base_url}/{name}", issue_label))
 
         index_html = _build_index(issues, base_url)
         try:
