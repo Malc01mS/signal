@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal — Issue #5</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0a;
+      color: #d8d8d8;
+      font-family: 'Lora', serif;
+      font-size: 16px;
+      line-height: 1.78;
+      padding: 48px 24px 80px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* MASTHEAD */
+    .masthead {
+      margin-bottom: 48px;
+    }
+
+    .masthead-wordmark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #d8d8d8;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .masthead-meta {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #6b6b6b;
+      margin-bottom: 20px;
+    }
+
+    .amber-rule {
+      height: 1px;
+      background: #c9a84c;
+      width: 100%;
+    }
+
+    /* SECTION HEADERS */
+    .section-header {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-variant: small-caps;
+      color: #6b6b6b;
+      margin-bottom: 4px;
+      margin-top: 48px;
+    }
+
+    .section-amber-underline {
+      height: 1px;
+      background: #c9a84c;
+      width: 32px;
+      margin-bottom: 24px;
+    }
+
+    /* MACRO SIGNAL */
+    .macro-signal-body {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      line-height: 1.78;
+      color: #d8d8d8;
+    }
+
+    .macro-signal-body p + p {
+      margin-top: 1.1em;
+    }
+
+    /* PICK CARDS */
+    .pick-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 22px 24px;
+      margin-bottom: 16px;
+      background: #111111;
+    }
+
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .card-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .type-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      color: #6b6b6b;
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    .pillar-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #444;
+    }
+
+    .card-link {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: #c9a84c;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .card-link:hover { text-decoration: underline; }
+
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #e8e8e8;
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+
+    .card-byline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .card-summary {
+      font-family: 'Lora', serif;
+      font-size: 0.93rem;
+      line-height: 1.72;
+      color: #c0c0c0;
+      margin-bottom: 14px;
+    }
+
+    .card-divider {
+      border: none;
+      border-top: 1px dashed #222;
+      margin-bottom: 12px;
+    }
+
+    .card-indicator {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem;
+      color: #c9a84c;
+      line-height: 1.5;
+    }
+
+    .card-indicator::before {
+      content: '→ ';
+    }
+
+    /* LONG GAME */
+    .long-game-card {
+      border: 1px solid #2a2218;
+      border-radius: 4px;
+      padding: 28px 28px;
+      margin-bottom: 16px;
+      background: #0f0e0b;
+    }
+
+    .long-game-card .card-title {
+      font-size: 1.15rem;
+    }
+
+    .long-game-card .card-summary {
+      font-size: 0.97rem;
+    }
+
+    /* WEALTH & STRUCTURE */
+    .wealth-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 18px 22px;
+      margin-bottom: 12px;
+      background: #111111;
+    }
+
+    /* FEEDBACK */
+    .feedback-section {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid #1e1e1e;
+    }
+
+    .feedback-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      line-height: 1.6;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #444;
+      font-style: italic;
+      padding: 16px 0;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 480px) {
+      body { padding: 32px 16px 60px; }
+      .masthead-wordmark { font-size: 2.4rem; }
+      .pick-card, .long-game-card { padding: 18px 16px; }
+      .card-meta-row { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead-wordmark">Signal</div>
+    <div class="masthead-meta">Issue #5 &nbsp;&middot;&nbsp; May 10, 2026</div>
+    <div class="amber-rule"></div>
+  </header>
+
+  <!-- MACRO SIGNAL -->
+  <section>
+    <div class="section-header">Macro Signal</div>
+    <div class="section-amber-underline"></div>
+    
+      <p class="empty-state">No macro signal generated this week.</p>
+    
+  </section>
+
+  <!-- HIGH-ALPHA PICKS -->
+  
+  <section>
+    <div class="section-header">High-Alpha Picks</div>
+    <div class="section-amber-underline"></div>
+
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">Supply Chain Fragility</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2605.06411v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Cascading disruptions in natural gas, fertilizers, and crops drive structural food supply vulnerabilities globally</div>
+
+      <div class="card-byline">
+        
+        
+          Pavel Kiparisov, Christian Folberth
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">First systemic model integrating natural gas, NPK fertilizers, and 11 staple crops across 208 countries shows 22% global caloric loss under full trade isolation—and vulnerability *increased* through 2023. Most countries cannot internally close even one segment (gas OR fertilizer OR crops), revealing structural brittleness masked by globalization. Few possess full-stack food sovereignty. This maps directly onto hard asset thesis (potash, phosphate deposits), reshoring fragility, and which blocs hold non-financialized leverage in a deglobalizing cycle.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If deglobalization accelerates, watch: (1) sovereign fertilizer capacity builds in food-import-dependent regions (India, MENA, sub-Saharan Africa), (2) natural gas export policy becoming explicit food security tool (Russia, Qatar, US), (3) potash/phosphate miners (Nutrien, Mosaic, OCP) pricing in scarcity premium. Counterfactual: if fertilizer trade remains stable despite energy shocks, the cascade model overstates fragility—watch fertilizer stockpile data and substitution rates.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">Financial Architecture</span>
+        </div>
+        
+        <a class="card-link" href="https://www.project-syndicate.org/commentary/global-financial-system-making-hormuz-shock-worse-by-hanan-morsy-2026-05" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Is the Global Financial System Making the Hormuz Shock Worse?</div>
+
+      <div class="card-byline">
+        
+        
+        Project Syndicate&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Argues the global financial system—designed to stabilize emerging markets through liquidity provision during shocks—is instead exacerbating the Hormuz crisis by triggering procyclical capital flight, tightening USD liquidity conditions, and forcing defensive reserve drawdowns. The structural flaw: when risk-off hits, the architecture itself becomes the transmission mechanism for contagion rather than the firebreak. This matters because Malcolm tracks how macro plumbing breaks under geopolitical stress; if the safety net is the accelerant, positioning around EM debt, dollar shortage dynamics, and commodity-linked sovereigns shifts materially. The piece likely draws on IMF/World Bank critique from within, which gives it institutional weight.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If this thesis holds, watch EM sovereign CDS spreads widening faster than commodity repricing alone would justify, and IMF SDR allocation debates resurfacing as political cover for structural redesign. Counterfactual: if swap lines activate broadly and spreads compress, the critique overstates fragility.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">Automation Economics</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2605.05127v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">The Demand Externality of Automation</div>
+
+      <div class="card-byline">
+        
+        
+          Erhan Bayraktar
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Bayraktar models automation as a two-sided equilibrium problem: firms maximize profit through automation that raises productivity but shifts income from wages to capital returns, while heterogeneous households face incomplete insurance and unequal asset ownership. The central mechanism—privately optimal automation can be socially excessive when low-wealth, high-MPC households lose wage income faster than capital ownership diffuses. High-skill complementarity and broad equity distribution flip the outcome; concentrated ownership and rapid labor displacement create demand destruction even as output rises. This formalizes the distributional bottleneck Malcolm encounters qualitatively through macro podcasts—automation's first-order effect on purchasing power distribution precedes its second-order productivity gains.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If AI-driven automation concentrates in sectors employing low-asset, high-MPC labor while equity ownership remains narrow, watch for: consumer credit stress indicators diverging from headline productivity growth, equity risk premium compression despite rising automation capex, and policy pivots toward broad-based capital distribution mechanisms (sovereign wealth funds, corporate governance interventions). Counterfactual: rapid diffusion of AI tooling to complement rather than displace mid-skill labor would show up as stable wage share with rising multifactor productivity.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">Labor Market Automation & Structural Adjustment</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2605.03767v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Did US Worker Retraining Reduce Participant Automation Exposure?</div>
+
+      <div class="card-byline">
+        
+        
+          Julian Jacobs, Jordan Canedy
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Jacobs/Canedy analyze 23M WIOA retraining records (2017-2023) and find U.S. public worker retraining programs rarely reduce automation exposure—most participants return to their original occupational field, with wage gains likely driven by mean reversion rather than occupational shift. Their "Retrainability Index" shows employer-led apprenticeships significantly outperform public programs, suggesting current active labor market policy succeeds at wage support but not structural adaptation to automation. This empirically undermines the consensus that retraining is a viable policy response to AI displacement, pointing instead toward employer-embedded skill formation as the only mechanism that moves workers away from routine-task-intensive work.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If public retraining structurally fails to shift workers out of automation-exposed roles, policy will bifurcate: either massive expansion of employer-embedded apprenticeships (Germany model) or acceptance that displaced workers require direct income support rather than occupational transition. Watch for state-level apprenticeship subsidy experiments and whether upcoming AI industrial policy bills include employer training tax credits vs. public program funding—counterfactual is renewed federal investment in WIOA-style public retraining.</div>
+      
+    </article>
+    
+    
+  </section>
+  
+
+  <!-- THE LONG GAME -->
+  
+  <section>
+    <div class="section-header">The Long Game</div>
+    <div class="section-amber-underline"></div>
+
+    <article class="long-game-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">Capital Markets Structure</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2605.03980v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Do Venture Capitalists Beat Random Allocation?</div>
+
+      <div class="card-byline">
+        
+        
+          Max Sina Knicker, Jean-Philippe Bouchaud, Michael Benzaquen
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Academic paper from École Polytechnique uses constrained random portfolios (matched on timing, geography, sector, size) to test whether VCs outperform chance. Finding: empirical VC portfolios are statistically indistinguishable from random allocation in the right tail—the home-run outcomes that drive returns. Weak evidence of downside protection only. This strikes directly at the LP capital allocation model and suggests VC returns may reflect exposure to a power-law distribution rather than skill in company selection. If true, implications for how Malcolm thinks about early-stage allocation: you're paying 2-and-20 for beta to a lottery, not alpha.</div>
+
+      
+      <div class="card-summary" style="font-style: italic; color: #888; margin-bottom: 14px;">
+        Published May 2026—this is new academic work challenging VC alpha claims at a moment when AI bubble discourse and private market valuations are under heavy scrutiny.
+      </div>
+      
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If this holds, GP selection criteria should tilt toward access/deal flow monopolies (YC, Sequoia network) rather than track record quality. Watch for LP capital flight from mid-tier funds into concentration strategies or direct indexing vehicles. Counterfactual: replication studies fail or VCs produce evidence of systematic edge in specific verticals (e.g., biotech, where technical diligence matters).</div>
+      
+    </article>
+  </section>
+  
+
+  <!-- WEALTH & STRUCTURE -->
+  
+
+  <!-- FEEDBACK -->
+  <div class="feedback-section">
+    <p class="feedback-text">
+      Reply to this email with your notes. They'll shape next week's brief.<br>
+      To log feedback manually: <code style="font-size:0.75rem; color:#555;">python -c "from feedback import append_feedback; append_feedback(input('Feedback: '))"</code>
+    </p>
+  </div>
+
+</div>
+</body>
+</html>
