@@ -1,21 +1,41 @@
 from github import Github
 from pathlib import Path
 from datetime import datetime
+import json
 import os
 
 
-def _build_index(issues: list[tuple[str, str, str]], base_url: str) -> str:
-    """Generate an index.html listing all issues newest-first.
+MANIFEST_PATH = "docs/manifest.json"
 
-    issues: list of (date_str, url, issue_label) e.g. ("2026-05-10", "https://...", "Issue #4")
-    """
+
+def _load_manifest(repo) -> dict:
+    """Load {date_str: issue_number} manifest from the repo, or return empty dict."""
+    try:
+        f = repo.get_contents(MANIFEST_PATH)
+        return json.loads(f.decoded_content.decode("utf-8"))
+    except Exception:
+        return {}
+
+
+def _save_manifest(repo, manifest: dict) -> None:
+    data = json.dumps(manifest, sort_keys=True, indent=2)
+    try:
+        existing = repo.get_contents(MANIFEST_PATH)
+        repo.update_file(MANIFEST_PATH, "Update Signal manifest", data, existing.sha)
+    except Exception:
+        repo.create_file(MANIFEST_PATH, "Create Signal manifest", data)
+
+
+def _build_index(manifest: dict, base_url: str) -> str:
+    """Generate index.html from {date_str: issue_number} manifest, newest first."""
     rows = ""
-    for date_str, url, issue_label in sorted(issues, reverse=True):
+    for date_str, issue_number in sorted(manifest.items(), reverse=True):
         try:
             label = datetime.strptime(date_str, "%Y-%m-%d").strftime("%B %-d, %Y")
         except Exception:
             label = date_str
-        rows += f'      <li><a href="{url}">{issue_label} &mdash; {label}</a></li>\n'
+        url = f"{base_url}/{date_str}.html"
+        rows += f'      <li><a href="{url}">Issue #{issue_number} &mdash; {label}</a></li>\n'
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -58,7 +78,7 @@ def _build_index(issues: list[tuple[str, str, str]], base_url: str) -> str:
 </html>"""
 
 
-def publish(html_path: str) -> str:
+def publish(html_path: str, issue_number: int = None) -> str:
     g = Github(os.environ["GITHUB_TOKEN"])
     repo = g.get_repo(os.environ["GITHUB_REPO"])
     base_url = os.environ["GITHUB_PAGES_URL"].rstrip("/")
@@ -74,32 +94,20 @@ def publish(html_path: str) -> str:
     except Exception:
         repo.create_file(file_path, f"Signal {date_str}", content)
 
-    # Rebuild index.html from all docs/*.html files (excluding index itself)
+    # Update manifest and rebuild index
     try:
-        import re as _re
-        all_files = repo.get_contents("docs")
-        issues = []
-        for f in all_files:
-            name = f.name
-            if name == "index.html" or not name.endswith(".html"):
-                continue
-            stem = name[:-5]  # strip .html
-            # Extract "Issue #N" from the file's <title> tag
-            try:
-                raw = f.decoded_content.decode("utf-8", errors="ignore")
-                m = _re.search(r"Issue #(\d+)", raw)
-                issue_label = f"Issue #{m.group(1)}" if m else "Signal"
-            except Exception:
-                issue_label = "Signal"
-            issues.append((stem, f"{base_url}/{name}", issue_label))
+        manifest = _load_manifest(repo)
+        if issue_number is not None:
+            manifest[date_str] = issue_number
+        _save_manifest(repo, manifest)
 
-        index_html = _build_index(issues, base_url)
+        index_html = _build_index(manifest, base_url)
         try:
             existing_index = repo.get_contents("docs/index.html")
             repo.update_file("docs/index.html", "Update Signal index", index_html, existing_index.sha)
         except Exception:
             repo.create_file("docs/index.html", "Update Signal index", index_html)
     except Exception as e:
-        print(f"  Warning: could not update index.html: {e}", flush=True)
+        print(f"  Warning: could not update index: {e}", flush=True)
 
     return f"{base_url}/{date_str}.html"

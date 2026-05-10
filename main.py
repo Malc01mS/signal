@@ -66,7 +66,7 @@ def run():
     html_path = render(brief, issue_number=issue)
     print(f"  HTML rendered: {html_path}", flush=True)
 
-    public_url = publish(html_path)
+    public_url = publish(html_path, issue_number=issue)
     print(f"  Published: {public_url}", flush=True)
 
     commit_seen(pending_seen)  # persist after successful publish, before email
