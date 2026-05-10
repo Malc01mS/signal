@@ -63,5 +63,5 @@ SCORING_THRESHOLDS = {
     "cut": 0,
 }
 
-MAX_ITEMS_PER_PILLAR = 12  # removed per-pillar cap; Stage 2 scoring is already selective
-MAX_TOTAL_ITEMS = 12
+MAX_ITEMS_PER_PILLAR = 12  # Stage 2 scoring is already selective; per-pillar cap left loose
+MAX_TOTAL_ITEMS = 9       # hard cap: rank by thematic coherence, cut the tail
