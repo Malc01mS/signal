@@ -13,6 +13,7 @@ def compose(scored_items: list[dict], feedback_context: str = "") -> dict:
         pillar = item.get("pillar", "macro_capital")
         if pillar not in by_pillar:
             pillar = "macro_capital"
+        item["pillar"] = pillar  # normalise in-place so downstream filters work
         by_pillar[pillar].append(item)
 
     all_sorted = sorted(scored_items, key=lambda x: x.get("total", 0), reverse=True)
