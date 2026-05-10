@@ -60,7 +60,7 @@ Return ONLY valid JSON:
   }},
   "total": <int>,
   "tier": "high_alpha | include | cut",
-  "pillar": "<pillar_name>",
+  "pillar": "<one of: macro_capital | geopolitics_power | tech_industry | wealth_architecture | long_game | stack>",
   "why_now_editorial": "<One sentence. Why does this appear this week specifically.>",
   "summary": "<3-4 sentences. What it says and why it matters to Malcolm specifically. Dense, no fluff.>",
   "directional_indicator": "<Specific: if this thesis holds, [X] follows. Watch [Y] as the counterfactual.>"
