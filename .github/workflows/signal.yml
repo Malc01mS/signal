@@ -1,0 +1,48 @@
+name: Signal Newsletter
+
+on:
+  schedule:
+    - cron: '0 13 * * 0'  # Every Sunday at 6 AM PDT (13:00 UTC)
+  workflow_dispatch:        # Allow manual trigger from the GitHub Actions UI
+
+permissions:
+  contents: write
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Signal
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPO: Malc01mS/signal
+          GITHUB_PAGES_URL: https://malc01ms.github.io/signal
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
+          SENDER_EMAIL: onboarding@resend.dev
+        run: python main.py
+
+      - name: Commit state files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/seen_items.json data/issue.json
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: update state after issue [skip ci]"
+            git pull --rebase origin main
+            git push
+          fi
