@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal — Issue #6</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0a;
+      color: #d8d8d8;
+      font-family: 'Lora', serif;
+      font-size: 16px;
+      line-height: 1.78;
+      padding: 48px 24px 80px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* MASTHEAD */
+    .masthead {
+      margin-bottom: 48px;
+    }
+
+    .masthead-wordmark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #d8d8d8;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .masthead-meta {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #6b6b6b;
+      margin-bottom: 20px;
+    }
+
+    .amber-rule {
+      height: 1px;
+      background: #c9a84c;
+      width: 100%;
+    }
+
+    /* SECTION HEADERS */
+    .section-header {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-variant: small-caps;
+      color: #6b6b6b;
+      margin-bottom: 4px;
+      margin-top: 48px;
+    }
+
+    .section-amber-underline {
+      height: 1px;
+      background: #c9a84c;
+      width: 32px;
+      margin-bottom: 24px;
+    }
+
+    /* MACRO SIGNAL */
+    .macro-signal-body {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      line-height: 1.78;
+      color: #d8d8d8;
+    }
+
+    .macro-signal-body p + p {
+      margin-top: 1.1em;
+    }
+
+    /* PICK CARDS */
+    .pick-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 22px 24px;
+      margin-bottom: 16px;
+      background: #111111;
+    }
+
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .card-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .type-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      color: #6b6b6b;
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    .pillar-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #444;
+    }
+
+    .card-link {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: #c9a84c;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .card-link:hover { text-decoration: underline; }
+
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #e8e8e8;
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+
+    .card-byline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .card-summary {
+      font-family: 'Lora', serif;
+      font-size: 0.93rem;
+      line-height: 1.72;
+      color: #c0c0c0;
+      margin-bottom: 14px;
+    }
+
+    .card-divider {
+      border: none;
+      border-top: 1px dashed #222;
+      margin-bottom: 12px;
+    }
+
+    .card-indicator {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem;
+      color: #c9a84c;
+      line-height: 1.5;
+    }
+
+    .card-indicator::before {
+      content: '→ ';
+    }
+
+    /* LONG GAME */
+    .long-game-card {
+      border: 1px solid #2a2218;
+      border-radius: 4px;
+      padding: 28px 28px;
+      margin-bottom: 16px;
+      background: #0f0e0b;
+    }
+
+    .long-game-card .card-title {
+      font-size: 1.15rem;
+    }
+
+    .long-game-card .card-summary {
+      font-size: 0.97rem;
+    }
+
+    /* WEALTH & STRUCTURE */
+    .wealth-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 18px 22px;
+      margin-bottom: 12px;
+      background: #111111;
+    }
+
+    /* FEEDBACK */
+    .feedback-section {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid #1e1e1e;
+    }
+
+    .feedback-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      line-height: 1.6;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #444;
+      font-style: italic;
+      padding: 16px 0;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 480px) {
+      body { padding: 32px 16px 60px; }
+      .masthead-wordmark { font-size: 2.4rem; }
+      .pick-card, .long-game-card { padding: 18px 16px; }
+      .card-meta-row { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead-wordmark">Signal</div>
+    <div class="masthead-meta">Issue #6 &nbsp;&middot;&nbsp; May 24, 2026</div>
+    <div class="amber-rule"></div>
+  </header>
+
+  <!-- MACRO SIGNAL -->
+  <section>
+    <div class="section-header">Macro Signal</div>
+    <div class="section-amber-underline"></div>
+    
+      <div class="macro-signal-body">
+        
+          <p>Coordination infrastructure fails when the tools meant to aggregate information or stabilize distributions themselves become sources of fragmentation. Attention distortions mean agents can't price shared risk correctly; sticky wages that vary by type mean fiscal transfers can't clear without creating new redistribution demands that feed back into monetary settings.</p>
+        
+          <p>The IFDP paper shows how misallocated attention creates belief divergence that compounds under volatility—exactly when coordination matters most. The redistribution-as-state-variable framework reveals monetary policy losing traction when wage rigidities differ across groups, forcing fiscal dominance or abandonment of segments. Watch for central bank communication strategies that narrow rather than broaden—fewer forward guidance categories, coarser regional aggregates, louder signaling on single mandates. That contraction in information architecture precedes either a coordination break or explicit hierarchy.</p>
+        
+      </div>
+    
+  </section>
+
+  <!-- HIGH-ALPHA PICKS -->
+  
+  <section>
+    <div class="section-header">High-Alpha Picks</div>
+    <div class="section-amber-underline"></div>
+
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">macro capital</span>
+        </div>
+        
+        <a class="card-link" href="https://www.federalreserve.gov/econres/ifdp/attention-allocation-and-belief-distortions.htm" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">IFDP Paper: Attention Allocation and Belief Distortions</div>
+
+      <div class="card-byline">
+        
+        
+        FRB: Working Papers&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Fed researchers using Michigan Survey microdata show that shifting household attention toward unfavorable economic news substantially increases inflation forecast bias relative to ML full-information benchmarks, while dropping unfavorable attention has minimal effect. Critically, the largest bias increases come not from inflation news itself but from attention to social/political/geopolitical narratives—and aggregate news sentiment has zero effect when reported attention allocation is unchanged. This is a micro-structural mechanism for how narratives create macro belief distortions independent of fundamentals, relevant to understanding why consensus inflation expectations may persistently diverge from realized outcomes.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If inflation expectations remain elevated despite improving CPI prints, look for which non-economic narratives are absorbing attention share in sentiment surveys. Counterfactual: if geopolitical narrative intensity drops but expectations stay sticky, the attention-allocation mechanism fails and you're back to standard anchoring/adaptive models.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">macro capital</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2605.15614v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">When Redistribution Becomes a State Variable: Monetary-Fiscal Stabilization with Type-Specific Sticky Wages</div>
+
+      <div class="card-byline">
+        
+        
+          Kenji Miyazaki
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Miyazaki shows that when wage contracts are type-specific (wealthy vs. constrained households adjust wages relative to their own past wages, not an aggregate index), redistribution becomes a path-dependent state variable—not just a contemporaneous flow. The cross-type wage gap persists through second-order expectations and feeds back into aggregate demand via consumption dispersion. This means standard inflation-targeting or profit-wedge neutralization cannot restore efficient allocations; optimal policy requires *history-dependent* transfers that respond to inherited wage dispersion, not only current profits. In calibration, wage rigidity amplifies the output response to transfer shocks by 3.27x. This challenges the Lyn Alden/Ray Dalio intuition that fiscal transfers simply flow through aggregate demand symmetrically—distribution locks in through wage inertia, making redistribution a *stock*, not a flow.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If this holds, post-pandemic wage compression reversals (especially unionized/non-union gaps) are not self-correcting under neutral monetary policy. Watch for persistent consumption dispersion even as headline CPI stabilizes—if wage gap persistence appears in CEX micro data or sector-specific wage trackers, fiscal stimulus timing and targeting become first-order for output paths, not just equity.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2605.18357v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Engagement vs. Commitment: The Economic Trade-Offs of Polarizing News Content</div>
+
+      <div class="card-byline">
+        
+        
+          Shunyao Yan, Klaus M. Miller
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Causal identification using editorial supply variation and election timing shows polarizing news content increases time-on-site but does NOT convert to subscriptions—and actively harms subscription retention during high-salience periods. The mechanism is NOT confirmation bias (ideology proxies show no moderation effect), suggesting a different behavioral loop: affective polarization drives compulsive engagement without building trust or willingness to pay. This is a rare clean separation of metrics that ad models optimize for versus what sustainable media businesses require, with macro implications for platform economics as X/Meta chase engagement while Substack/paywalled models chase commitment.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If this holds, advertising-subsidized news platforms face structural margin compression as engagement content repels subscription conversion. Watch for divergence in CAC:LTV ratios between engagement-first and paywall-first publishers, and for AI recommendation systems optimizing the wrong objective function at scale.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2605.21629v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Faster Completion, Less Learning: Generative AI Reduced Study Time on Math Problems and the Knowledge They Build</div>
+
+      <div class="card-byline">
+        
+        
+          Sina Rismanchian, Hasan Uzun, Jeffrey Matayoshi
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Ten-year panel study of 3.2M math learning interactions reveals ChatGPT adoption created 27-31% decline in time spent on AI-susceptible problems across middle school through college, using graph-based problems as natural control group. The mechanism: students offload cognitive work to AI for text problems they can transcribe as prompts, but cannot shortcut visual/interactive problems requiring platform manipulation. This is not self-reported productivity—it's behavioral erosion of effort allocation with retention metrics showing learning decay. The structural insight: AI doesn't just assist task completion, it systematically undermines the desirable difficulty that builds durable knowledge, and students cannot self-regulate the distinction.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If this generalizes beyond math: watch for retention/performance gaps emerging 12-18 months post-graduation in technical hiring cohorts who heavily used AI during training (2023-2025 grads). Counterfactual: firms that can measure task decomposition skill vs raw output speed will price the delta. Ed-tech pivots toward AI-resistant pedagogy (Socratic, embodied, adversarial) signal awareness.</div>
+      
+    </article>
+    
+    
+  </section>
+  
+
+  <!-- THE LONG GAME -->
+  
+  <section>
+    <div class="section-header">The Long Game</div>
+    <div class="section-amber-underline"></div>
+
+    <article class="long-game-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2605.17425v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">The Viability of Blockchain Markets under Discrete Clearing and Paid Priority</div>
+
+      <div class="card-byline">
+        
+        
+          Agostino Capponi, Álvaro Cartea, Fayçal Drissi
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Capponi/Cartea/Drissi formally model why discrete clearing + paid priority (MEV/priority fees) structurally breaks markets that blockchains claim to disintermediate. The mechanism: priority auctions create endogenous participation thresholds—only high-valuation traders pay to jump the queue, which concentrates liquidity, worsens adverse selection for market makers in single clearing rounds, and biases prices away from fundamentals. Longer block times (needed for consensus security) amplify the failure mode until markets collapse entirely. This is not 'blockchain needs better UX'—it's a structural incompatibility between discrete execution architectures and continuous price formation requirements.</div>
+
+      
+      <div class="card-summary" style="font-style: italic; color: #888; margin-bottom: 14px;">
+        May 2025 arXiv preprint—captures emergent skepticism around blockchain as infrastructure for price discovery as DeFi TVL stagnates and institutional adoption narratives shift from 'decentralized finance' to 'tokenized traditional rails.'
+      </div>
+      
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If this holds, DeFi never outcompetes centralized limit order books for serious capital allocation—watch institutional volume migration back to CEXs despite custody/regulatory friction, and 'appchain' narratives pivoting to non-price-discovery use cases (settlement, provenance) as the viable zone. Counterfactual: solve with off-chain matching + on-chain settlement hybrids, but that concedes the decentralization thesis.</div>
+      
+    </article>
+  </section>
+  
+
+  <!-- WEALTH & STRUCTURE -->
+  
+
+  <!-- FEEDBACK -->
+  <div class="feedback-section">
+    <p class="feedback-text">
+      Reply to this email with your notes. They'll shape next week's brief.<br>
+      To log feedback manually: <code style="font-size:0.75rem; color:#555;">python -c "from feedback import append_feedback; append_feedback(input('Feedback: '))"</code>
+    </p>
+  </div>
+
+</div>
+</body>
+</html>
