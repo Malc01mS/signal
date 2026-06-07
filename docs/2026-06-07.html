@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal — Issue #8</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0a;
+      color: #d8d8d8;
+      font-family: 'Lora', serif;
+      font-size: 16px;
+      line-height: 1.78;
+      padding: 48px 24px 80px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* MASTHEAD */
+    .masthead {
+      margin-bottom: 48px;
+    }
+
+    .masthead-wordmark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #d8d8d8;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .masthead-meta {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #6b6b6b;
+      margin-bottom: 20px;
+    }
+
+    .amber-rule {
+      height: 1px;
+      background: #c9a84c;
+      width: 100%;
+    }
+
+    /* SECTION HEADERS */
+    .section-header {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-variant: small-caps;
+      color: #6b6b6b;
+      margin-bottom: 4px;
+      margin-top: 48px;
+    }
+
+    .section-amber-underline {
+      height: 1px;
+      background: #c9a84c;
+      width: 32px;
+      margin-bottom: 24px;
+    }
+
+    /* MACRO SIGNAL */
+    .macro-signal-body {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      line-height: 1.78;
+      color: #d8d8d8;
+    }
+
+    .macro-signal-body p + p {
+      margin-top: 1.1em;
+    }
+
+    /* PICK CARDS */
+    .pick-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 22px 24px;
+      margin-bottom: 16px;
+      background: #111111;
+    }
+
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .card-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .type-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      color: #6b6b6b;
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    .pillar-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #444;
+    }
+
+    .card-link {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: #c9a84c;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .card-link:hover { text-decoration: underline; }
+
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #e8e8e8;
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+
+    .card-byline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .card-summary {
+      font-family: 'Lora', serif;
+      font-size: 0.93rem;
+      line-height: 1.72;
+      color: #c0c0c0;
+      margin-bottom: 14px;
+    }
+
+    .card-divider {
+      border: none;
+      border-top: 1px dashed #222;
+      margin-bottom: 12px;
+    }
+
+    .card-indicator {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem;
+      color: #c9a84c;
+      line-height: 1.5;
+    }
+
+    .card-indicator::before {
+      content: '→ ';
+    }
+
+    /* LONG GAME */
+    .long-game-card {
+      border: 1px solid #2a2218;
+      border-radius: 4px;
+      padding: 28px 28px;
+      margin-bottom: 16px;
+      background: #0f0e0b;
+    }
+
+    .long-game-card .card-title {
+      font-size: 1.15rem;
+    }
+
+    .long-game-card .card-summary {
+      font-size: 0.97rem;
+    }
+
+    /* WEALTH & STRUCTURE */
+    .wealth-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 18px 22px;
+      margin-bottom: 12px;
+      background: #111111;
+    }
+
+    /* FEEDBACK */
+    .feedback-section {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid #1e1e1e;
+    }
+
+    .feedback-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      line-height: 1.6;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #444;
+      font-style: italic;
+      padding: 16px 0;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 480px) {
+      body { padding: 32px 16px 60px; }
+      .masthead-wordmark { font-size: 2.4rem; }
+      .pick-card, .long-game-card { padding: 18px 16px; }
+      .card-meta-row { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead-wordmark">Signal</div>
+    <div class="masthead-meta">Issue #8 &nbsp;&middot;&nbsp; June 07, 2026</div>
+    <div class="amber-rule"></div>
+  </header>
+
+  <!-- MACRO SIGNAL -->
+  <section>
+    <div class="section-header">Macro Signal</div>
+    <div class="section-amber-underline"></div>
+    
+      <div class="macro-signal-body">
+        
+          <p>Digital money systems converge toward concentration when they face liquidity stress. The safer and faster settlement becomes, the more dependent the system grows on continuous clearing through a shrinking number of nodes—exactly when those nodes become fragile.</p>
+        
+          <p>Both FEDS papers expose this: perfectly safe digital money fractures under redemption runs because safety guarantees require either massive reserves or a lender backstop, both centralizing forces. Faster settlement compresses the time available to redistribute liquidity across the system, so shocks propagate before bilateral credit lines or repo markets can absorb them. Watch the spread between Treasury repo rates and stablecoin funding costs—widening means the private system is already offloading tail risk to fewer counterparties. Short anything marketing itself as "perfectly collateralized" decentralized finance.</p>
+        
+      </div>
+    
+  </section>
+
+  <!-- HIGH-ALPHA PICKS -->
+  
+  <section>
+    <div class="section-header">High-Alpha Picks</div>
+    <div class="section-amber-underline"></div>
+
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">DISCUSSION</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://www.cnbc.com/2026/06/05/google-to-pay-spacex-920-million-a-month-for-xai-compute-capacity.html" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Google to pay SpaceX $920M a month for compute capacity at xAI data centers</div>
+
+      <div class="card-byline">
+        
+        
+        Hacker News&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Google is paying SpaceX $920M monthly for compute capacity at xAI data centers—an arrangement that inverts traditional cloud infrastructure assumptions. This implies Google either cannot build fast enough to meet internal AI training demand, or xAI has achieved a cost/performance structure (likely via vertical integration: Starlink connectivity, custom chip deployment, energy deals) that undercuts Google's own TPU economics. The arrangement formalizes Musk's infrastructure as a compute cartel layer, not just a model competitor. It also suggests hyperscalers are bifurcating: those who control full-stack infrastructure (energy, chips, cooling, networking) versus those who rent it.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If this holds, expect similar capacity agreements from Meta/Microsoft as CapEx-to-revenue ratios compress. Watch whether xAI begins licensing infrastructure itself as a product, and whether Google's TPU roadmap slows. Counterfactual: Google announces breakthrough cooling/chip efficiency that makes this a temporary bridge deal.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">macro capital</span>
+        </div>
+        
+        <a class="card-link" href="https://www.federalreserve.gov/econres/feds/the-fragility-of-perfectly-safe-digital-money.htm" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">FEDS Paper: The Fragility of Perfectly Safe Digital Money</div>
+
+      <div class="card-byline">
+        
+        
+        FRB: Working Papers&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Fed researchers identify a paradox: perfectly safe digital money (CBDC/stablecoins) creates fragility through the *unbundling* of trust from settlement. Traditional banking ties credit creation to payment rails; digital money separates verification (priced via gas fees) from institutional backstop. When gas fees spike during congestion, settlement becomes unreliable even if the asset itself is riskless—creating novel bank-run dynamics where flight-to-safety clogs the very infrastructure needed to escape. This formalizes why "algorithmically sound" money can still suffer coordination failures that look like 2023 stablecoin depegs.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If CBDC designs ignore congestion pricing, expect liquidity crises where the safest asset becomes practically inaccessible during stress. Watch for regulatory frameworks that mandate *settlement guarantee* beyond *asset safety*—that's the tell they've internalized this research.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">macro capital</span>
+        </div>
+        
+        <a class="card-link" href="https://www.federalreserve.gov/econres/feds/settlement-speed-and-financial-stability.htm" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">FEDS Paper: Settlement Speed and Financial Stability(Revised)</div>
+
+      <div class="card-byline">
+        
+        
+        FRB: Working Papers&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Federal Reserve researchers model settlement speed as a variable with U-shaped welfare effects: faster settlement cuts counterparty exposure but amplifies crisis severity when defaults occur, because netting benefits disappear and liquidity buffers get stressed simultaneously. Optimal speed is topology-dependent and shifts toward slower settlement as system liquidity deteriorates—even when faster settlement would reduce default probability in isolation. This directly challenges the 'always faster = always safer' framing underlying stablecoin rails, T+0 equity proposals, and real-time gross settlement evangelism. The mechanism: netting allows offsetting obligations to cancel before settlement; speed eliminates that cushion.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If liquidity conditions tighten (higher rates persist, QT continues), expect regulatory hesitation or reversal on instant settlement mandates. Watch for Fed speeches citing 'procyclical liquidity demand' or 'network amplification' as code for pumping the brakes on T+0 infrastructure.</div>
+      
+    </article>
+    
+    
+  </section>
+  
+
+  <!-- THE LONG GAME -->
+  
+  <section>
+    <div class="section-header">The Long Game</div>
+    <div class="section-amber-underline"></div>
+
+    <article class="long-game-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">macro capital</span>
+        </div>
+        
+        <a class="card-link" href="https://www.federalreserve.gov/econres/feds/slow-learning.htm" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">FEDS Paper: Slow Learning</div>
+
+      <div class="card-byline">
+        
+        
+        FRB: Working Papers&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Fed economists show that when economic outcomes are highly self-fulfilling (beliefs → reality → beliefs), convergence to rational expectations equilibrium is so slow that REE-based models may systematically mislead. In New Keynesian and DSGE frameworks with empirically realistic parameters, agents' learning processes can take generations to stabilize—meaning central bank policy built on REE assumptions may be fighting phantom equilibria. This formalizes why inflation anchoring breaks down asymmetrically, why forward guidance misfires, and why regime changes (like 2020–2023) produce such chaotic adjustment paths. The mechanism: reflexivity compounds forecast errors rather than correcting them when self-fulfilling loops dominate.</div>
+
+      
+      <div class="card-summary" style="font-style: italic; color: #888; margin-bottom: 14px;">
+        Fed researchers publishing formal evidence that rational expectations may not hold in practice—just as inflation expectations remain sticky and policy transmission appears weaker than models predict.
+      </div>
+      
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If learning is structurally slower than Fed models assume, watch for: (1) persistent inflation expectation drift despite hawkish policy, (2) continued bond market mispricing of terminal rates, (3) extended lag between policy shifts and real economy adjustment. Counterfactual: rapid re-anchoring of inflation expectations would suggest REE still operative.</div>
+      
+    </article>
+  </section>
+  
+
+  <!-- WEALTH & STRUCTURE -->
+  
+
+  <!-- FEEDBACK -->
+  <div class="feedback-section">
+    <p class="feedback-text">
+      Reply to this email with your notes. They'll shape next week's brief.<br>
+      To log feedback manually: <code style="font-size:0.75rem; color:#555;">python -c "from feedback import append_feedback; append_feedback(input('Feedback: '))"</code>
+    </p>
+  </div>
+
+</div>
+</body>
+</html>
