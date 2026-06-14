@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal — Issue #9</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0a;
+      color: #d8d8d8;
+      font-family: 'Lora', serif;
+      font-size: 16px;
+      line-height: 1.78;
+      padding: 48px 24px 80px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* MASTHEAD */
+    .masthead {
+      margin-bottom: 48px;
+    }
+
+    .masthead-wordmark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #d8d8d8;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .masthead-meta {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #6b6b6b;
+      margin-bottom: 20px;
+    }
+
+    .amber-rule {
+      height: 1px;
+      background: #c9a84c;
+      width: 100%;
+    }
+
+    /* SECTION HEADERS */
+    .section-header {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-variant: small-caps;
+      color: #6b6b6b;
+      margin-bottom: 4px;
+      margin-top: 48px;
+    }
+
+    .section-amber-underline {
+      height: 1px;
+      background: #c9a84c;
+      width: 32px;
+      margin-bottom: 24px;
+    }
+
+    /* MACRO SIGNAL */
+    .macro-signal-body {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      line-height: 1.78;
+      color: #d8d8d8;
+    }
+
+    .macro-signal-body p + p {
+      margin-top: 1.1em;
+    }
+
+    /* PICK CARDS */
+    .pick-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 22px 24px;
+      margin-bottom: 16px;
+      background: #111111;
+    }
+
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .card-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .type-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      color: #6b6b6b;
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    .pillar-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #444;
+    }
+
+    .card-link {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: #c9a84c;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .card-link:hover { text-decoration: underline; }
+
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #e8e8e8;
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+
+    .card-byline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .card-summary {
+      font-family: 'Lora', serif;
+      font-size: 0.93rem;
+      line-height: 1.72;
+      color: #c0c0c0;
+      margin-bottom: 14px;
+    }
+
+    .card-divider {
+      border: none;
+      border-top: 1px dashed #222;
+      margin-bottom: 12px;
+    }
+
+    .card-indicator {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem;
+      color: #c9a84c;
+      line-height: 1.5;
+    }
+
+    .card-indicator::before {
+      content: '→ ';
+    }
+
+    /* LONG GAME */
+    .long-game-card {
+      border: 1px solid #2a2218;
+      border-radius: 4px;
+      padding: 28px 28px;
+      margin-bottom: 16px;
+      background: #0f0e0b;
+    }
+
+    .long-game-card .card-title {
+      font-size: 1.15rem;
+    }
+
+    .long-game-card .card-summary {
+      font-size: 0.97rem;
+    }
+
+    /* WEALTH & STRUCTURE */
+    .wealth-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 18px 22px;
+      margin-bottom: 12px;
+      background: #111111;
+    }
+
+    /* FEEDBACK */
+    .feedback-section {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid #1e1e1e;
+    }
+
+    .feedback-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      line-height: 1.6;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #444;
+      font-style: italic;
+      padding: 16px 0;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 480px) {
+      body { padding: 32px 16px 60px; }
+      .masthead-wordmark { font-size: 2.4rem; }
+      .pick-card, .long-game-card { padding: 18px 16px; }
+      .card-meta-row { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead-wordmark">Signal</div>
+    <div class="masthead-meta">Issue #9 &nbsp;&middot;&nbsp; June 14, 2026</div>
+    <div class="amber-rule"></div>
+  </header>
+
+  <!-- MACRO SIGNAL -->
+  <section>
+    <div class="section-header">Macro Signal</div>
+    <div class="section-amber-underline"></div>
+    
+      <div class="macro-signal-body">
+        
+          <p>Cross-border credit chains collapse inward when dollar funding tightens because emerging market banks cannot replace wholesale funding at the same speed their counterparties demand it back. The system doesn't distribute stress—it forces concentration into whoever still has balance sheet capacity.</p>
+        
+          <p>Brazil surfaces twice here because its financial intermediaries sit at the end of these chains, borrowing short in dollars to lend long in reais. When U.S. funding conditions shift, Brazilian banks face a coordination problem: they need dollars simultaneously, but the infrastructure to supply them shrinks exactly when demand spikes. The bullish case depends on this mechanism staying dormant. Watch basis swaps between BRL and USD at the front end—widening there means the coordination tax is rising and someone is about to withdraw capacity.</p>
+        
+      </div>
+    
+  </section>
+
+  <!-- HIGH-ALPHA PICKS -->
+  
+  <section>
+    <div class="section-header">High-Alpha Picks</div>
+    <div class="section-amber-underline"></div>
+
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2606.12788v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">To Share or Not to Share: Orchestrating Trustworthy Data in Global Value Chains</div>
+
+      <div class="card-byline">
+        
+        
+          Han-Teng Liao, Chang-Yi Kao
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">This paper maps the collision between EU carbon border regulation (CBAM) and semiconductor supply chain opacity, proposing a sovereign data exchange architecture using IDSA framework to reconcile regulatory transparency demands with East Asian data sovereignty resistance. Focuses on Taipei-Penang corridor as the critical choke point where environmental telemetry requirements clash with proprietary manufacturing data protection. The Digital Product Passport mechanism it describes becomes the actual technical infrastructure through which carbon regulations will restructure global chip supply chains—not through tariffs alone, but through mandatory data sharing that rewires vendor relationships and creates new compliance layers Tesla must navigate for battery/compute procurement.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If CBAM enforcement tightens as described, watch for: (1) TSMC/Samsung negotiations with EU regulators over telemetry granularity becoming public flashpoints, (2) emergence of third-party data escrow services in semiconductor trade (new intermediary layer), (3) Chinese foundries gaining relative advantage if they can underprice compliance complexity. Counterfactual: US semiconductor onshoring lobby successfully carves out CBAM exemptions for domestic production, fragmenting the standard before it scales.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://marginalrevolution.com/marginalrevolution/2026/06/sometimes-it-is-hard-to-solve-for-the-equilibrium.html?utm_source=rss&utm_medium=rss&utm_campaign=sometimes-it-is-hard-to-solve-for-the-equilibrium" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Sometimes it is hard to solve for the equilibrium</div>
+
+      <div class="card-byline">
+        
+        
+        Marginal REVOLUTION&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">US government invoked national security authorities to block all foreign nationals—including Anthropic's own foreign employees—from accessing Claude Fable 5 and Mythos 5 models. This is not chip export controls or compute restrictions; it's direct model access prohibition under IEEPA-style emergency powers. Anthropic must comply immediately, fragmenting their workforce and creating a two-tier operational reality. This marks the operational beginning of AI as a controlled dual-use technology, similar to nuclear or cryptographic restrictions, and forces immediate corporate structure decisions (spin out international arms? relocate talent? accept bifurcated development?).</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If this becomes precedent, watch for: (1) Anthropic/OpenAI/Google establishing foreign subsidiaries with degraded model access, (2) top foreign AI researchers relocating to China/UK/Canada rather than accept second-class status in US labs, (3) venture capital repricing AI startups by founder citizenship. Counterfactual: if reversed within 90 days, it was a negotiating scare tactic; if permanent, US has chosen technological nationalism over talent aggregation.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">macro capital</span>
+        </div>
+        
+        <a class="card-link" href="https://marginalrevolution.com/marginalrevolution/2026/06/the-bullish-case-for-brazil.html?utm_source=rss&utm_medium=rss&utm_campaign=the-bullish-case-for-brazil" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">The bullish case for Brazil</div>
+
+      <div class="card-byline">
+        
+        
+        Marginal REVOLUTION&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Crawford anchors Brazil's strategic value not in financialized metrics but in calorie-per-acre productivity—the most durable constraint in a world adding 2B people by 2050 while arable land shrinks. Brazil controls disproportionate agricultural output capacity (soy, corn, beef, sugar) with expansion room remaining, positioning it as a hard-asset sovereign play if deglobalization forces regional food autarky. This inverts the typical EM risk frame: Brazil's chaos becomes less relevant than its irreplaceable soil productivity and freshwater access when calories matter more than capital flows.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If this thesis holds, Brazilian farmland and agribusiness equities outperform regardless of fiscal dysfunction; watch Chinese/Middle Eastern sovereign land acquisition patterns and grain futures volatility as confirming signals. Counterfactual: breakthrough vertical farming economics or lab protein scaling at cost.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">macro capital</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2606.11566v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Credit Capacity and the Propagation of Funding Shocks: Evidence from U.S. and Brazilian Financial Intermediaries</div>
+
+      <div class="card-byline">
+        
+        
+          Ayush Jha, Ali Jaffri, Frank Fabozzi
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">This paper isolates *credit capacity*—the structural ability of financial intermediaries to absorb and transmit funding shocks—as the primary mechanism explaining why identical funding disruptions produce 3–6x larger lending contractions in Brazil vs. the U.S. Using 23 years of supervisory data across crises, authors show persistence (how long shocks last) is similar cross-border, but baseline capacity differs drastically. Implication: emerging market credit systems amplify global liquidity cycles not because their institutions are less stable over time, but because they enter shocks with thinner buffers. This reframes EM vulnerability as a stock problem (capacity), not a flow problem (behavior during stress).</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If credit capacity, not persistence, drives divergence, watch EM banks' *pre-crisis* capital ratios and regulatory reserve requirements as leading indicators of contagion severity. Counterfactual: if Fed tightening propagates harder through Brazilian credit than U.S. regional banks, it confirms the capacity mechanism and suggests front-running EM credit stress via sovereign spreads or local currency shorts.</div>
+      
+    </article>
+    
+    
+  </section>
+  
+
+  <!-- THE LONG GAME -->
+  
+  <section>
+    <div class="section-header">The Long Game</div>
+    <div class="section-amber-underline"></div>
+
+    <article class="long-game-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2606.08265v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Unintended Consequences of Recommender System Interventions: Evidence from a Field Experiment</div>
+
+      <div class="card-byline">
+        
+        
+          Shilei Luo, Song Yao, Dennis J. Zhang
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Field experiment shows a "sleep reminder" campaign paradoxically increased late-night engagement 14.75% through forced-exploration: the intervention revealed high latent demand the algorithm hadn't discovered through organic behavior, triggering a policy update that persisted weeks post-campaign. This is not just A/B test noise—it's evidence that one-off interventions permanently reshape recommendation systems by generating training data that wouldn't exist otherwise. The mechanism exposes why platform governance interventions (ESG content boosts, misinformation flags, wellness nudges) may systematically backfire by teaching algorithms what high-signal engagement looks like in previously under-explored state spaces.</div>
+
+      
+      <div class="card-summary" style="font-style: italic; color: #888; margin-bottom: 14px;">
+        Published 2026 on arXiv—represents frontier research on algorithmic feedback loops that directly challenges naive platform governance assumptions now entering regulatory discourse.
+      </div>
+      
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If this forced-exploration mechanism generalizes, regulatory mandates requiring content interventions (EU DSA, state-level algorithm audits) will produce opposite-intended effects at scale. Watch for: platforms gaming compliance by designing interventions that 'discover' profitable niches under audit cover; academic replication across TikTok/YouTube/Instagram; litigation citing this as evidence interventions cause harm they claim to prevent.</div>
+      
+    </article>
+  </section>
+  
+
+  <!-- WEALTH & STRUCTURE -->
+  
+
+  <!-- FEEDBACK -->
+  <div class="feedback-section">
+    <p class="feedback-text">
+      Reply to this email with your notes. They'll shape next week's brief.<br>
+      To log feedback manually: <code style="font-size:0.75rem; color:#555;">python -c "from feedback import append_feedback; append_feedback(input('Feedback: '))"</code>
+    </p>
+  </div>
+
+</div>
+</body>
+</html>
