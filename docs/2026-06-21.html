@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal — Issue #10</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0a;
+      color: #d8d8d8;
+      font-family: 'Lora', serif;
+      font-size: 16px;
+      line-height: 1.78;
+      padding: 48px 24px 80px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* MASTHEAD */
+    .masthead {
+      margin-bottom: 48px;
+    }
+
+    .masthead-wordmark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #d8d8d8;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .masthead-meta {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #6b6b6b;
+      margin-bottom: 20px;
+    }
+
+    .amber-rule {
+      height: 1px;
+      background: #c9a84c;
+      width: 100%;
+    }
+
+    /* SECTION HEADERS */
+    .section-header {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-variant: small-caps;
+      color: #6b6b6b;
+      margin-bottom: 4px;
+      margin-top: 48px;
+    }
+
+    .section-amber-underline {
+      height: 1px;
+      background: #c9a84c;
+      width: 32px;
+      margin-bottom: 24px;
+    }
+
+    /* MACRO SIGNAL */
+    .macro-signal-body {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      line-height: 1.78;
+      color: #d8d8d8;
+    }
+
+    .macro-signal-body p + p {
+      margin-top: 1.1em;
+    }
+
+    /* PICK CARDS */
+    .pick-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 22px 24px;
+      margin-bottom: 16px;
+      background: #111111;
+    }
+
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .card-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .type-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      color: #6b6b6b;
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    .pillar-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #444;
+    }
+
+    .card-link {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: #c9a84c;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .card-link:hover { text-decoration: underline; }
+
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #e8e8e8;
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+
+    .card-byline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .card-summary {
+      font-family: 'Lora', serif;
+      font-size: 0.93rem;
+      line-height: 1.72;
+      color: #c0c0c0;
+      margin-bottom: 14px;
+    }
+
+    .card-divider {
+      border: none;
+      border-top: 1px dashed #222;
+      margin-bottom: 12px;
+    }
+
+    .card-indicator {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem;
+      color: #c9a84c;
+      line-height: 1.5;
+    }
+
+    .card-indicator::before {
+      content: '→ ';
+    }
+
+    /* LONG GAME */
+    .long-game-card {
+      border: 1px solid #2a2218;
+      border-radius: 4px;
+      padding: 28px 28px;
+      margin-bottom: 16px;
+      background: #0f0e0b;
+    }
+
+    .long-game-card .card-title {
+      font-size: 1.15rem;
+    }
+
+    .long-game-card .card-summary {
+      font-size: 0.97rem;
+    }
+
+    /* WEALTH & STRUCTURE */
+    .wealth-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 18px 22px;
+      margin-bottom: 12px;
+      background: #111111;
+    }
+
+    /* FEEDBACK */
+    .feedback-section {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid #1e1e1e;
+    }
+
+    .feedback-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      line-height: 1.6;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #444;
+      font-style: italic;
+      padding: 16px 0;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 480px) {
+      body { padding: 32px 16px 60px; }
+      .masthead-wordmark { font-size: 2.4rem; }
+      .pick-card, .long-game-card { padding: 18px 16px; }
+      .card-meta-row { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead-wordmark">Signal</div>
+    <div class="masthead-meta">Issue #10 &nbsp;&middot;&nbsp; June 21, 2026</div>
+    <div class="amber-rule"></div>
+  </header>
+
+  <!-- MACRO SIGNAL -->
+  <section>
+    <div class="section-header">Macro Signal</div>
+    <div class="section-amber-underline"></div>
+    
+      <div class="macro-signal-body">
+        
+          <p>Prediction markets don't measure uncertainty—they construct it by defining what can be settled cleanly. The paper on tradable uncertainty shows this infrastructure fails precisely where property rights, courts, and identity systems are contested. Markets cluster around events legible to external verification: elections with UN observers, sovereign defaults with ISDA documentation, not civil conflict phases or local resource disputes.</p>
+        
+          <p>This reveals geographic fragility in coordination tools. Watch where mobile money adoption accelerates without corresponding judicial capacity—that's where betting infrastructure centralises through foreign platforms or collapses into informal networks. The trade: short fintech penetration in jurisdictions racing past their settlement infrastructure, long wherever boring legal reform precedes market innovation.</p>
+        
+      </div>
+    
+  </section>
+
+  <!-- HIGH-ALPHA PICKS -->
+  
+  <section>
+    <div class="section-header">High-Alpha Picks</div>
+    <div class="section-amber-underline"></div>
+
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">geopolitics power</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2606.15757v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Towards a Theory of Modular Natives: Explaining Superscaling, China's Greatest Innovation Yet</div>
+
+      <div class="card-byline">
+        
+        
+          Bent Flyvbjerg, Alexander Budzier, Maria Christodoulou
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Flyvbjerg (megaprojects scholar) introduces 'modular natives'—components born modular (solar cells, batteries) vs. retrofitted modularity. Statistical analysis of massive project dataset shows modular natives exhibit finite, predictable risk; bespoke systems show infinite, fat-tailed risk. Core thesis: China grasped this principle institutionally—state capacity + modular native focus = superscaling in renewables, batteries, EVs, robotics. This isn't just manufacturing efficiency; it's a structural advantage in risk regime that compounds at scale. Explains why China leads categories where modular natives dominate, struggles where they don't.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If thesis holds: sectors with emergent modular natives (humanoid robots, synthetic biology platforms) become China's next dominance zones. Watch whether Western attempts at 'modularity' in chips/defense actually use natives or just modularize bespoke architectures—the latter won't scale predictably. U.S. industrial policy success hinges on identifying true modular natives, not forcing modularity onto legacy systems.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">geopolitics power</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2606.20102v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Artificial Intelligence as Game Changer in Cybersecurity: What We Learned in 2025-2026, and how this is relevant for Africa</div>
+
+      <div class="card-byline">
+        
+        
+          Mikael Alemu Gorsky
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">This paper documents two 2025-2026 inflection points: an LLM autonomously executing a state-aligned cyber campaign with minimal human intervention, and the U.S. placing the most capable cyber-relevant models under controlled access that excludes all African entities—governments, firms, universities. The thesis is that frontier AI has become weaponized infrastructure, not general-purpose technology, and access is now explicitly rationed by a hegemon coalition. For Malcolm: this is industrial policy as containment doctrine, semiconductor choke points now extended to model weights themselves, and evidence that AI diffusion will not follow the internet's pattern—it's being gated at the capability frontier as a matter of state security architecture.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If cyber-capable models remain under export control regimes, watch for: (1) bifurcation in global digital infrastructure resilience—allied blocs vs. rest-of-world, (2) Chinese/Russian model development accelerating under autarky constraints, (3) cybersecurity becoming a wedge issue in U.S.-Africa relations as critical infrastructure partnerships require trusted AI layers. Counterfactual: if OpenAI/Anthropic models leak or open-weight alternatives reach parity, controlled-access collapses and the paper's premise weakens.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2606.19899v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Measuring Biological Capabilities and Risks of AI Agents</div>
+
+      <div class="card-byline">
+        
+        
+          Patricia Paskov, Jeffrey Lee, Kyle Brady
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">This paper operationalizes a question Malcolm should be tracking: how do you measure whether AI agents can autonomously execute dangerous biological research tasks? The authors show that evaluation design choices—task decomposition, scaffolding assumptions, success criteria—materially change what safety claims mean, which matters as governments debate compute thresholds and licensing regimes. They frame 'agentic evals' as the new bottleneck between AI capability and deployment permission, particularly for bio/chem domains where dual-use is non-theoretical. The work surfaces a governance mechanism forming now: standardized eval protocols becoming de facto regulatory infrastructure before formal law catches up.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If this eval framework gains traction, expect compute governance debates to pivot from FLOPS thresholds to 'demonstrated agent autonomy on dangerous task classes.' Watch for NIST/UK AI Safety Institute adoption as the leading indicator; lack of standardization means fragmented national regimes and regulatory arbitrage opportunities.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">macro capital</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2606.17503v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">What Prediction Markets Can See: Market Formation, Settlement Legibility, and the Geography of Tradable Uncertainty in Africa and Latin America</div>
+
+      <div class="card-byline">
+        
+        
+          Ade Adegbenro
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">This paper reverse-engineers prediction markets by asking not how well they forecast, but which uncertainties get listed at all. The authors code 6,000+ Africa and Latin America contracts for 'settlement legibility'—whether outcomes can be worded, sourced, and credibly resolved by third parties—and find systematic gaps: African inventory is nearly all football, while major civic events produce no contracts; Latin America gets deeper coverage but skews heavily toward Venezuela. The mechanism is not importance but legibility: markets price what CAN be settled, not what SHOULD be known. This maps directly onto which geographies get financialized information infrastructure and where structural uncertainty remains dark to Western capital.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If settlement legibility governs market formation, expect prediction market liquidity to concentrate further in jurisdictions with strong third-party data infrastructure (elections with AP/Reuters, sports with official leagues). Watch whether stablecoin adoption in frontier markets creates alternate settlement rails that route around Western media gatekeeping—if local reporters become credible oracles, contract geography shifts.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2606.19214v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Testing Centralized and Polycentric Computational Planning</div>
+
+      <div class="card-byline">
+        
+        
+          Ricardo Alonzo Fernández Salguero
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Researcher builds reproducible computational benchmark comparing centralized planning algorithms against market-based coordination mechanisms using synthetic economies with realistic production networks, capacity constraints, and welfare metrics. Planner consistently outperforms markets across scenarios, but author explicitly flags this doesn't prove planning superiority—design choices (informational asymmetries, incomplete market structures) mechanically advantage the central coordinator. Core contribution is the *falsifiable framework itself*: computational economics now has standardized testing infrastructure for coordination mechanism design, similar to how ML has ImageNet. Matters to Malcolm because this intersects three live debates: (1) whether AI compute should be centrally allocated vs. market-driven, (2) China's semiconductor self-sufficiency planning vs. Taiwan's market ecosystem, (3) whether next-gen AI systems become de facto economic planners.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If compute-intensive industries (semiconductors, AI inference, energy) continue centralizing, watch for policy adoption of computational planning frameworks in supply chain coordination—CHIPS Act execution could shift from subsidy distribution to active allocation optimization. Counterfactual: if decentralized alternatives improve dramatically in next benchmark iterations, validates current market-based semiconductor ecosystem structure.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">DISCUSSION</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://spectrum.ieee.org/phoenix-semiconductors-legacychips-oems" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Semiconductor Lifeline Keeps Fighter Jets in the Air</div>
+
+      <div class="card-byline">
+        
+        
+        Hacker News&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Legacy semiconductors (90s-era chips) power critical defense systems including F-15s, F-16s, and missile guidance—but original fabs are shuttered and OEMs can't source replacements through normal channels. Companies like Phoenix Semiconductors reverse-engineer obsolete chips to keep weapon systems operational, exposing a structural dependency where defense readiness hinges on boutique firms cloning 30-year-old processes. This isn't Moore's Law disruption—it's the inverse: geopolitical risk concentrating in the low-margin, forgotten tail of the semiconductor stack. For Malcolm: if Taiwan scenarios accelerate, legacy chip supply for defense becomes a chokepoint separate from cutting-edge node competition.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If U.S.-China tensions spike around Taiwan, watch for emergency defense procurement authorizations targeting legacy fab capacity onshoring—not just CHIPS Act advanced nodes. Counterfactual: if legacy supply remains boutique/ad-hoc, expect cascading readiness gaps in non-software-upgradable platforms (older aircraft, naval systems).</div>
+      
+    </article>
+    
+    
+  </section>
+  
+
+  <!-- THE LONG GAME -->
+  
+  <section>
+    <div class="section-header">The Long Game</div>
+    <div class="section-amber-underline"></div>
+
+    <article class="long-game-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2606.19777v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Have Data Centers Raised Your Electric Bill? Causal Evidence from the United States</div>
+
+      <div class="card-byline">
+        
+        
+          Asa Watten, John Bistline, Geoffrey Blanford
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Counterintuitive causal study: U.S. data centers *lowered* average retail electricity prices 2015–2024 via economies of scale spreading fixed grid costs over larger demand. Transmission/distribution/generation all show declining unit costs with load growth—classic infrastructure economics that gets drowned out in energy transition hysteria. Authors warn future supply constraints could reverse this if generation can't keep pace, but the mechanism matters: durable industrial demand is deflationary for existing ratepayers when capacity exists. Direct challenge to populist 'AI is spiking your power bill' framing.</div>
+
+      
+      <div class="card-summary" style="font-style: italic; color: #888; margin-bottom: 14px;">
+        Published in 2026 just as AI buildout debates escalate around grid capacity constraints, preempting the 'data centers crash the grid' narrative with causal evidence.
+      </div>
+      
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If capex for generation/transmission continues to outpace demand growth (watch utility IRR compression, permitting timelines), the deflationary effect holds. Counterfactual: regional price spikes in constrained grids (PJM, CAISO) signal the reversal threshold where supply can't scale fast enough.</div>
+      
+    </article>
+  </section>
+  
+
+  <!-- WEALTH & STRUCTURE -->
+  
+
+  <!-- FEEDBACK -->
+  <div class="feedback-section">
+    <p class="feedback-text">
+      Reply to this email with your notes. They'll shape next week's brief.<br>
+      To log feedback manually: <code style="font-size:0.75rem; color:#555;">python -c "from feedback import append_feedback; append_feedback(input('Feedback: '))"</code>
+    </p>
+  </div>
+
+</div>
+</body>
+</html>
