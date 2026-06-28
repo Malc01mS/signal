@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal — Issue #11</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0a;
+      color: #d8d8d8;
+      font-family: 'Lora', serif;
+      font-size: 16px;
+      line-height: 1.78;
+      padding: 48px 24px 80px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* MASTHEAD */
+    .masthead {
+      margin-bottom: 48px;
+    }
+
+    .masthead-wordmark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #d8d8d8;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .masthead-meta {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #6b6b6b;
+      margin-bottom: 20px;
+    }
+
+    .amber-rule {
+      height: 1px;
+      background: #c9a84c;
+      width: 100%;
+    }
+
+    /* SECTION HEADERS */
+    .section-header {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-variant: small-caps;
+      color: #6b6b6b;
+      margin-bottom: 4px;
+      margin-top: 48px;
+    }
+
+    .section-amber-underline {
+      height: 1px;
+      background: #c9a84c;
+      width: 32px;
+      margin-bottom: 24px;
+    }
+
+    /* MACRO SIGNAL */
+    .macro-signal-body {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      line-height: 1.78;
+      color: #d8d8d8;
+    }
+
+    .macro-signal-body p + p {
+      margin-top: 1.1em;
+    }
+
+    /* PICK CARDS */
+    .pick-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 22px 24px;
+      margin-bottom: 16px;
+      background: #111111;
+    }
+
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .card-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .type-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      color: #6b6b6b;
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    .pillar-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #444;
+    }
+
+    .card-link {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: #c9a84c;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .card-link:hover { text-decoration: underline; }
+
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #e8e8e8;
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+
+    .card-byline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .card-summary {
+      font-family: 'Lora', serif;
+      font-size: 0.93rem;
+      line-height: 1.72;
+      color: #c0c0c0;
+      margin-bottom: 14px;
+    }
+
+    .card-divider {
+      border: none;
+      border-top: 1px dashed #222;
+      margin-bottom: 12px;
+    }
+
+    .card-indicator {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem;
+      color: #c9a84c;
+      line-height: 1.5;
+    }
+
+    .card-indicator::before {
+      content: '→ ';
+    }
+
+    /* LONG GAME */
+    .long-game-card {
+      border: 1px solid #2a2218;
+      border-radius: 4px;
+      padding: 28px 28px;
+      margin-bottom: 16px;
+      background: #0f0e0b;
+    }
+
+    .long-game-card .card-title {
+      font-size: 1.15rem;
+    }
+
+    .long-game-card .card-summary {
+      font-size: 0.97rem;
+    }
+
+    /* WEALTH & STRUCTURE */
+    .wealth-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 18px 22px;
+      margin-bottom: 12px;
+      background: #111111;
+    }
+
+    /* FEEDBACK */
+    .feedback-section {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid #1e1e1e;
+    }
+
+    .feedback-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      line-height: 1.6;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #444;
+      font-style: italic;
+      padding: 16px 0;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 480px) {
+      body { padding: 32px 16px 60px; }
+      .masthead-wordmark { font-size: 2.4rem; }
+      .pick-card, .long-game-card { padding: 18px 16px; }
+      .card-meta-row { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead-wordmark">Signal</div>
+    <div class="masthead-meta">Issue #11 &nbsp;&middot;&nbsp; June 28, 2026</div>
+    <div class="amber-rule"></div>
+  </header>
+
+  <!-- MACRO SIGNAL -->
+  <section>
+    <div class="section-header">Macro Signal</div>
+    <div class="section-amber-underline"></div>
+    
+      <div class="macro-signal-body">
+        
+          <p>China's rebalancing failure exposes how growth models collapse inward when the external scaffolding disappears. Without export demand and foreign capital absorption, Beijing has no mechanism to shift income from state enterprises to households—the coordination between provinces, banks, and SOEs only functions under expansion.</p>
+        
+          <p>The stalled rebalancing forces more centralization: local governments lose fiscal autonomy, capital controls tighten, and credit allocation becomes more explicitly political rather than commercially intermediated. Watch provincial bond spreads and the pace of SOE consolidation announcements. If spreads compress while consolidation accelerates, the system is choosing control over distribution—short anything dependent on decentralized Chinese credit creation, particularly commodity exporters to China and Western industrial firms banking on consumer market access.</p>
+        
+      </div>
+    
+  </section>
+
+  <!-- HIGH-ALPHA PICKS -->
+  
+  <section>
+    <div class="section-header">High-Alpha Picks</div>
+    <div class="section-amber-underline"></div>
+
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">geopolitics power</span>
+        </div>
+        
+        <a class="card-link" href="https://www.palladiummag.com/2026/06/23/war-by-other-means/" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">War by Other Means</div>
+
+      <div class="card-byline">
+        
+        
+        Palladium&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Argues robotic warfare fundamentally alters the social contract by decoupling state military power from citizen conscription—shifting dependency from populations to industrial firms (defense contractors, AI labs, semiconductor fabs). When the state no longer needs bodies, it needs production capacity, which reorganizes political bargaining power toward capital holders and technical talent. This isn't incremental procurement—it's a structural reordering of how states derive coercive capacity, echoing the transition from feudal levies to professional armies but with platform firms replacing officer classes. Palladium's institutional focus suggests this explores corporate sovereignty dynamics, likely connecting AI industrial policy, TSMC/ASML geopolitics, and post-Westphalian state forms.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If correct: defense budgets increasingly flow to private AI/robotics firms rather than troop systems; geopolitical power maps to semiconductor/AI supply chain control more than population size; labor's political leverage weakens as states become less reliant on mass mobilization. Watch for governments negotiating directly with Anduril/Palantir-type entities on strategic autonomy, or export controls tightening around dual-use autonomy stacks as the new nuclear threshold.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">macro capital</span>
+        </div>
+        
+        <a class="card-link" href="https://www.project-syndicate.org/commentary/chinese-economy-consumer-led-rebalancing-has-failed-by-stephen-s-roach-2026-06" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">China’s Failed Rebalancing</div>
+
+      <div class="card-byline">
+        
+        
+        Project Syndicate&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Stephen Roach argues China's two-decade promise to shift from investment-led to consumption-led growth has structurally failed—household consumption remains ~38% of GDP vs. ~68% in the US. This isn't policy choice; it's path dependency: the CCP's control mechanisms (SOE dominance, household income suppression, property as forced savings vehicle) are incompatible with Western-style consumer economies. The rebalancing was always theater. What matters: China's growth model requires external demand or massive capital misallocation to survive, making its geopolitical posture—and semiconductor/AI ambitions—inseparable from this structural weakness.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If rebalancing remains impossible, watch China's capital account pressure and dollar reserve drawdowns as the binding constraint. Counterfactual: meaningful fiscal transfers to households (unlikely) or accelerated external confrontation to secure export markets/resources.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">DISCUSSION</span>
+          <span class="pillar-label">geopolitics power</span>
+        </div>
+        
+        <a class="card-link" href="https://www.thedrive.com/news/feds-killed-polestar-and-spared-volvo-that-should-terrify-you" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Feds Killed Polestar and Spared Volvo</div>
+
+      <div class="card-byline">
+        
+        
+        Hacker News&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Treasury excluded Polestar (Chinese-owned, Geely parent) from the $7,500 EV tax credit while keeping Volvo (same parent company, similar supply chain) eligible—despite both being assembled in South Carolina with overlapping engineering and ownership. The decision reveals subsidy administration as covert industrial policy: eligibility determinations now carry more directional force than transparent tariffs. This isn't about emissions or North American manufacturing—it's administrative selectivity as geopolitical lever. For Malcolm: the mechanism here is regulatory opacity enabling surgical supply chain decoupling without legislative process. Tesla competes in this same subsidy landscape; the precedent is that eligibility can shift based on opaque national security/ownership interpretations, not transparent rules.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If subsidy eligibility becomes the primary enforcement mechanism for supply chain decoupling, watch for: (1) more automakers restructuring ownership/reporting to maintain access, (2) administrative guidance replacing tariffs as the main trade weapon, (3) Tesla's China exposure becoming a subsidy liability vector if geopolitical temperature rises further. Counterfactual: explicit tariff escalation would signal a return to transparent, rules-based trade enforcement.</div>
+      
+    </article>
+    
+    
+  </section>
+  
+
+  <!-- THE LONG GAME -->
+  
+  <section>
+    <div class="section-header">The Long Game</div>
+    <div class="section-amber-underline"></div>
+
+    <article class="long-game-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">geopolitics power</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2606.26470v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">The Growing Self-Reliance of Chinese Innovation</div>
+
+      <div class="card-byline">
+        
+        
+          ZIyu Chen, Christopher Esposito
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Comprehensive patent-to-citation analysis reveals Chinese patents now draw 26% of their scientific foundation from domestic Chinese research (up from 1% in 2000), surpassing reliance on U.S. science since 2021. The structural implication: export controls and research collaboration restrictions are fighting the last war—they assume a dependency relationship that dissolved during Biden's first term. This isn't about whether China can innovate, it's quantified proof they already shifted to indigenous science pipelines while U.S. policy was calibrated for 2015 realities. For Malcolm: if the semiconductor chokepoint strategy relies on continued Chinese dependence on Western research ecosystems, this data suggests that window closed before most realized it opened.</div>
+
+      
+      <div class="card-summary" style="font-style: italic; color: #888; margin-bottom: 14px;">
+        Trump's second-term cabinet signals renewed tech export controls while this shows the policy's core assumption—Chinese dependence on U.S. science—collapsed four years ago.
+      </div>
+      
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If this trend holds, watch Chinese patent quality metrics in AI/semiconductors independent of Western citation networks—DeepSeek-style breakthroughs become structural, not anomalies. Counterfactual: sustained Chinese reliance on Taiwan/Korean/European research partners would signal incomplete decoupling, keeping alliance-based restrictions viable.</div>
+      
+    </article>
+  </section>
+  
+
+  <!-- WEALTH & STRUCTURE -->
+  
+
+  <!-- FEEDBACK -->
+  <div class="feedback-section">
+    <p class="feedback-text">
+      Reply to this email with your notes. They'll shape next week's brief.<br>
+      To log feedback manually: <code style="font-size:0.75rem; color:#555;">python -c "from feedback import append_feedback; append_feedback(input('Feedback: '))"</code>
+    </p>
+  </div>
+
+</div>
+</body>
+</html>
