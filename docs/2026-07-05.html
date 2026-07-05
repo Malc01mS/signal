@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal — Issue #12</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0a;
+      color: #d8d8d8;
+      font-family: 'Lora', serif;
+      font-size: 16px;
+      line-height: 1.78;
+      padding: 48px 24px 80px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* MASTHEAD */
+    .masthead {
+      margin-bottom: 48px;
+    }
+
+    .masthead-wordmark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #d8d8d8;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .masthead-meta {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #6b6b6b;
+      margin-bottom: 20px;
+    }
+
+    .amber-rule {
+      height: 1px;
+      background: #c9a84c;
+      width: 100%;
+    }
+
+    /* SECTION HEADERS */
+    .section-header {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-variant: small-caps;
+      color: #6b6b6b;
+      margin-bottom: 4px;
+      margin-top: 48px;
+    }
+
+    .section-amber-underline {
+      height: 1px;
+      background: #c9a84c;
+      width: 32px;
+      margin-bottom: 24px;
+    }
+
+    /* MACRO SIGNAL */
+    .macro-signal-body {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      line-height: 1.78;
+      color: #d8d8d8;
+    }
+
+    .macro-signal-body p + p {
+      margin-top: 1.1em;
+    }
+
+    /* PICK CARDS */
+    .pick-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 22px 24px;
+      margin-bottom: 16px;
+      background: #111111;
+    }
+
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .card-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .type-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      color: #6b6b6b;
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    .pillar-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #444;
+    }
+
+    .card-link {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: #c9a84c;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .card-link:hover { text-decoration: underline; }
+
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #e8e8e8;
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+
+    .card-byline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .card-summary {
+      font-family: 'Lora', serif;
+      font-size: 0.93rem;
+      line-height: 1.72;
+      color: #c0c0c0;
+      margin-bottom: 14px;
+    }
+
+    .card-divider {
+      border: none;
+      border-top: 1px dashed #222;
+      margin-bottom: 12px;
+    }
+
+    .card-indicator {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem;
+      color: #c9a84c;
+      line-height: 1.5;
+    }
+
+    .card-indicator::before {
+      content: '→ ';
+    }
+
+    /* LONG GAME */
+    .long-game-card {
+      border: 1px solid #2a2218;
+      border-radius: 4px;
+      padding: 28px 28px;
+      margin-bottom: 16px;
+      background: #0f0e0b;
+    }
+
+    .long-game-card .card-title {
+      font-size: 1.15rem;
+    }
+
+    .long-game-card .card-summary {
+      font-size: 0.97rem;
+    }
+
+    /* WEALTH & STRUCTURE */
+    .wealth-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 18px 22px;
+      margin-bottom: 12px;
+      background: #111111;
+    }
+
+    /* FEEDBACK */
+    .feedback-section {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid #1e1e1e;
+    }
+
+    .feedback-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      line-height: 1.6;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #444;
+      font-style: italic;
+      padding: 16px 0;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 480px) {
+      body { padding: 32px 16px 60px; }
+      .masthead-wordmark { font-size: 2.4rem; }
+      .pick-card, .long-game-card { padding: 18px 16px; }
+      .card-meta-row { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead-wordmark">Signal</div>
+    <div class="masthead-meta">Issue #12 &nbsp;&middot;&nbsp; July 05, 2026</div>
+    <div class="amber-rule"></div>
+  </header>
+
+  <!-- MACRO SIGNAL -->
+  <section>
+    <div class="section-header">Macro Signal</div>
+    <div class="section-amber-underline"></div>
+    
+      <div class="macro-signal-body">
+        
+          <p>AI compute pricing operates as a coordination mechanism: when demand spikes, whoever controls the GPUs sets terms. Premium pricing signals that coordination is moving from distributed access to choke-point control.</p>
+        
+          <p>The AI Premium trade captures margin concentration at infrastructure layers—hyperscalers and chip designers who can ration supply. This isn't about AI adoption broadly; it's about who extracts value when the system runs hot. Watch gross margins at NVIDIA and cloud AI divisions. If they expand while model labs' unit economics compress, the chokepoint is tightening and the premium persists. If they plateau, coordination risk has found alternative routes.</p>
+        
+      </div>
+    
+  </section>
+
+  <!-- HIGH-ALPHA PICKS -->
+  
+  <section>
+    <div class="section-header">High-Alpha Picks</div>
+    <div class="section-amber-underline"></div>
+
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">geopolitics power</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2606.26470v2" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">The Growing Self-Reliance of Chinese Innovation</div>
+
+      <div class="card-byline">
+        
+        
+          ZIyu Chen, Christopher Esposito
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Patent-citation analysis shows Chinese patents now cite Chinese-produced science 26% of the time (vs 1% in 2000), overtaking US-sourced science in 2021. This structural shift undermines the core assumption behind semiconductor export controls, entity lists, and research collaboration bans: that restricting access to US science will durably slow China's tech trajectory. The data suggests US policy is fighting the last war—China has already internalized the innovation stack. If this holds, continued export restrictions become symbolic rather than strategic, trading economic upside for diminishing security gain while accelerating China's drive toward full technological autarky.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If Chinese scientific self-reliance continues this trajectory, US semiconductor restrictions will shift from leverage tool to accelerant of decoupling. Watch whether US policy pivots from access denial to frontier speed (outpacing rather than restricting), and whether China's patent quality metrics (forward citations, commercialization rates) follow raw output upward—that confirms the stack is internalized, not just duplicated.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">macro capital</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2606.30583v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">AI Premium</div>
+
+      <div class="card-byline">
+        
+        
+          Nicola Borri, Yukun Liu, Aleh Tsyvinski
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Researchers built the first consumption-based AI factor from OpenRouter's proprietary token flow data—tracking real usage, not capex promises. They find high AI-beta stocks earn 64 bps/week via long-short, with premium concentrated in firms exposed to frontier models and paying users, not casual experimentation. This shifts AI investing from 'who sells pickaxes' to 'whose equity covaries with actual production usage'—a mechanistic reframe as hype meets realized revenue divergence. The intensive margin (closed-source, paid, seasoned users) driving alpha suggests winner-take-most dynamics already underway in consumption flows.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If token consumption concentration continues favoring frontier models, expect multiple compression in AI infrastructure plays with broad exposure and alpha migration toward application-layer companies with measurable high-beta covariance. Watch for correlation between rising AI factor volatility and equity dispersion within the Mag 7—token flow divergence precedes earnings revisions by ~1 quarter based on their data structure.</div>
+      
+    </article>
+    
+    
+  </section>
+  
+
+  <!-- THE LONG GAME -->
+  
+  <section>
+    <div class="section-header">The Long Game</div>
+    <div class="section-amber-underline"></div>
+
+    <article class="long-game-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">geopolitics power</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2606.27924v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Heterogeneous Diffusion of Electric Vehicles in China: Demand, Learning, Product Entry, and the Incidence of Industrial Policy</div>
+
+      <div class="card-byline">
+        
+        
+           Yu,  Hao, Jinge Li
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Structural decomposition of China's 2015-2024 EV transition shows product quality gains drove adoption more than subsidies, but subsidy removal would collapse EV-native firms' share by 73-89% while gutting consumer surplus asymmetrically (5x larger loss per capita in Tier 1 cities). Half the welfare destruction operates through Wright's Law learning effects—killing scale kills future cost curves, not just present cashflows. SOE manufacturers retain only 11% of EV business without subsidies vs 16-27% for BYD/Tesla/New Forces, revealing industrial policy as both selection mechanism and capability builder. The 3.38x return per subsidy yuan isn't stimulus—it's compound leverage through learning curves and product-entry dynamics that traditional fiscal multipliers miss entirely.</div>
+
+      
+      <div class="card-summary" style="font-style: italic; color: #888; margin-bottom: 14px;">
+        China just crossed 45% EV penetration in 2024 while Trump 2.0 begins unwinding U.S. industrial policy—this paper quantifies exactly how subsidy architecture creates lock-in and what happens when you remove it.
+      </div>
+      
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If Western governments abandon long-horizon EV subsidies while China maintains them, watch not just market-share divergence but *capability gap widening* through learning-curve compounding. Counterfactual: if U.S. extends IRA credits through 2030, measure whether domestic battery Wh/$ improves faster than removal of tariffs would allow via Chinese import learning spillovers.</div>
+      
+    </article>
+  </section>
+  
+
+  <!-- WEALTH & STRUCTURE -->
+  
+
+  <!-- FEEDBACK -->
+  <div class="feedback-section">
+    <p class="feedback-text">
+      Reply to this email with your notes. They'll shape next week's brief.<br>
+      To log feedback manually: <code style="font-size:0.75rem; color:#555;">python -c "from feedback import append_feedback; append_feedback(input('Feedback: '))"</code>
+    </p>
+  </div>
+
+</div>
+</body>
+</html>
