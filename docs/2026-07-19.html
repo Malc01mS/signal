@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal — Issue #14</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0a;
+      color: #d8d8d8;
+      font-family: 'Lora', serif;
+      font-size: 16px;
+      line-height: 1.78;
+      padding: 48px 24px 80px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* MASTHEAD */
+    .masthead {
+      margin-bottom: 48px;
+    }
+
+    .masthead-wordmark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #d8d8d8;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .masthead-meta {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #6b6b6b;
+      margin-bottom: 20px;
+    }
+
+    .amber-rule {
+      height: 1px;
+      background: #c9a84c;
+      width: 100%;
+    }
+
+    /* SECTION HEADERS */
+    .section-header {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-variant: small-caps;
+      color: #6b6b6b;
+      margin-bottom: 4px;
+      margin-top: 48px;
+    }
+
+    .section-amber-underline {
+      height: 1px;
+      background: #c9a84c;
+      width: 32px;
+      margin-bottom: 24px;
+    }
+
+    /* MACRO SIGNAL */
+    .macro-signal-body {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      line-height: 1.78;
+      color: #d8d8d8;
+    }
+
+    .macro-signal-body p + p {
+      margin-top: 1.1em;
+    }
+
+    /* PICK CARDS */
+    .pick-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 22px 24px;
+      margin-bottom: 16px;
+      background: #111111;
+    }
+
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .card-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .type-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      color: #6b6b6b;
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    .pillar-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #444;
+    }
+
+    .card-link {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: #c9a84c;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .card-link:hover { text-decoration: underline; }
+
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #e8e8e8;
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+
+    .card-byline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .card-summary {
+      font-family: 'Lora', serif;
+      font-size: 0.93rem;
+      line-height: 1.72;
+      color: #c0c0c0;
+      margin-bottom: 14px;
+    }
+
+    .card-divider {
+      border: none;
+      border-top: 1px dashed #222;
+      margin-bottom: 12px;
+    }
+
+    .card-indicator {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem;
+      color: #c9a84c;
+      line-height: 1.5;
+    }
+
+    .card-indicator::before {
+      content: '→ ';
+    }
+
+    /* LONG GAME */
+    .long-game-card {
+      border: 1px solid #2a2218;
+      border-radius: 4px;
+      padding: 28px 28px;
+      margin-bottom: 16px;
+      background: #0f0e0b;
+    }
+
+    .long-game-card .card-title {
+      font-size: 1.15rem;
+    }
+
+    .long-game-card .card-summary {
+      font-size: 0.97rem;
+    }
+
+    /* WEALTH & STRUCTURE */
+    .wealth-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 18px 22px;
+      margin-bottom: 12px;
+      background: #111111;
+    }
+
+    /* FEEDBACK */
+    .feedback-section {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid #1e1e1e;
+    }
+
+    .feedback-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      line-height: 1.6;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #444;
+      font-style: italic;
+      padding: 16px 0;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 480px) {
+      body { padding: 32px 16px 60px; }
+      .masthead-wordmark { font-size: 2.4rem; }
+      .pick-card, .long-game-card { padding: 18px 16px; }
+      .card-meta-row { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead-wordmark">Signal</div>
+    <div class="masthead-meta">Issue #14 &nbsp;&middot;&nbsp; July 19, 2026</div>
+    <div class="amber-rule"></div>
+  </header>
+
+  <!-- MACRO SIGNAL -->
+  <section>
+    <div class="section-header">Macro Signal</div>
+    <div class="section-amber-underline"></div>
+    
+      <div class="macro-signal-body">
+        
+          <p>Foreign financial stress doesn't diffuse across borders—it channels through specific counterparty chains and funding structures that amplify when they converge on common nodes. The IFDP papers show this coordination failure from both sides: external vulnerabilities concentrate in U.S. growth outcomes through discrete transmission paths, while corporate leverage hides off-balance-sheet until funding conditions tighten and force consolidation onto fewer, more visible balance sheets.</p>
+        
+          <p>The implication is mechanical. Watch basis spreads between foreign FX swap markets and corresponding overnight rates. When external stress forces deleveraging, it surfaces first as coordination breakdown in these precise funding junctions—corporations scrambling to consolidate hidden exposures meet foreign banks retreating from dollar provision. That's where the system doesn't gradually adjust but snaps to a new, more centralized configuration. Position accordingly in instruments that capture this plumbing directly, not the downstream volatility.</p>
+        
+      </div>
+    
+  </section>
+
+  <!-- HIGH-ALPHA PICKS -->
+  
+  <section>
+    <div class="section-header">High-Alpha Picks</div>
+    <div class="section-amber-underline"></div>
+
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">geopolitics power</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2607.09951v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Macroeconomic Risks from Maritime Trade Disruptions</div>
+
+      <div class="card-byline">
+        
+        
+          Vipin P. Veetil, Fathimath S. Vemmarath
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">This economic model proves maritime chokepoint closures produce cascading losses far exceeding the nominal trade value transiting them—losses stem from complementarity breaks in intermediate goods chains, not just rerouting costs. Critically: exporters lose 3-5x more than importers because commodity concentration funnels through single passages while buyers re-source globally. The paper quantifies non-linear effects: Middle East closures are sub-additive (Suez + Hormuz together < sum of parts), but East Asia scenarios (Malacca/Taiwan) are super-additive, meaning simultaneous disruption compounds exponentially. Damage propagates to countries whose cargo never touched the chokepoint—network structure, not direct exposure, determines incidence.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If Taiwan Strait tensions escalate toward blockade scenarios, watch semiconductor input supplier dispersion (Japan/Korea chemical precursors) and TSMC customer inventory builds as leading indicators. Super-additivity means a Malacca closure simultaneous with Taiwan disruption isn't 2x the problem—it's structurally worse, favoring pre-positioned hard asset exposure in Western Hemisphere supply chains (USMCA manufacturing, nearshored commodity processing). Exporter vulnerability asymmetry suggests short positions on commodity-dependent exporters (Australia iron ore, Middle East energy) outperform in closure scenarios vs. their import-side counterparties.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2607.15164v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">The Industrialization of Research ; On AI-Driven Science and Its Consequences</div>
+
+      <div class="card-byline">
+        
+        
+          Emmanuel Jeannot
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">AI is industrializing research itself—moving from craft model (human-embedded judgment) to pipeline model (decomposed, automated discovery). This isn't just faster science; it's structural transformation with seven failure modes: loss of intergenerational competence transfer, theoretical opacity (no human can verify AI-generated theories), peer review collapse under machine output volume, unproven paradigm-shift capacity, and agenda capture by political/industrial actors who control the infrastructure. The DOE Genesis Mission is the current instantiation, but the pattern applies wherever AI closes the research loop. This threatens the epistemological foundations that made science self-correcting.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If AI research pipelines scale before governance/verification systems adapt, watch for: (1) citation inflation without comprehension penetration, (2) widening gap between 'frontier' AI findings and human-verifiable knowledge, (3) capital concentration in infrastructure owners (Anthropic/OpenAI/national labs) becoming scientific agenda-setters. Counterfactual: emergence of credible AI interpretability breakthroughs or regulatory frameworks that enforce human-in-loop verification before publication.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2607.13844v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Messy Research, Certification and the Monetization of Science</div>
+
+      <div class="card-byline">
+        
+        
+          Johan Fourie
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Fourie argues AI doesn't just accelerate science production—it inverts where scarcity lives. When polishing a manuscript becomes cheaper than evaluating its actual contribution, certification value rises because the uncertified pool floods with slop. Prestigious journals/institutions can extract premiums as quality signals degrade elsewhere. The mechanism: polish was once costly enough to filter; now it's table stakes, so gatekeepers with fixed review capacity face explosion in submissions, diluting standards unless they impose Pigouvian tolls (higher submission barriers). This explains why Nature/Science rejection rates are spiking while predatory journals proliferate—AI moved the bottleneck from production to verification, and markets are repricing trust infrastructure accordingly.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If this holds, expect consolidation of certification power into incumbent journals/institutions that can credibly gatekeep, while alternative platforms (arXiv, preprints) face declining signal-to-noise. Watch for: (1) top-tier journals raising submission fees or imposing AI-detection screens, (2) corporate R&D labs vertically integrating their own peer review to bypass external certification costs, (3) emergence of paid fast-track certification services targeting AI-generated research. Counterfactual: if decentralized reputation systems (crypto-based peer review, community notes models) scale faster than incumbents adapt, certification fragments instead of consolidating.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://www.project-syndicate.org/commentary/chinese-subsidies-do-not-explain-its-competitiveness-by-kai-guo-2026-07" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Subsidies Do Not Explain China’s Competitiveness</div>
+
+      <div class="card-byline">
+        
+        
+        Project Syndicate&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Argues China's competitive edge in EVs, batteries, solar, and semiconductors now stems less from subsidies than from scale economies, vertical integration, brutal domestic competition, and state coordination of supply chains—mechanisms that compound faster than capital injections alone. Subsidies seeded initial capacity but can't explain why Chinese firms outexecute on cost curves, iteration speed, and ecosystem capture once markets mature. The implication: Western industrial policy mimicking subsidy playbooks without addressing these structural advantages will fail to close the gap.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If this holds, watch for Chinese firms maintaining margin leadership even as subsidy transparency increases under trade pressure. Counterfactual: if subsidies were determinative, we'd see competitive collapse when they taper—BYD's gross margins and Tesla Shanghai's cost structure are the live tests.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2607.14446v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Which Green Technology to Subsidize? Evidence from Electric Vehicles in South Korea</div>
+
+      <div class="card-byline">
+        
+        
+          Youngjin Hong, In Kyung Kim, Frank Verboven
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Demand modeling across South Korea's vehicle market shows that subsidizing hybrids (HEVs) reduces total emissions 47% more effectively than subsidizing pure EVs (BEVs) because hybrids pull more buyers away from ICE vehicles. The critical insight: cleanest ≠ most effective when adoption elasticity matters. For BEV subsidies to outperform HEV subsidies, grid carbon intensity must drop ~45%—a threshold most grids haven't reached. This inverts the consensus climate-tech narrative that always privileges the zero-emission solution.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If this substitution dynamic holds globally, expect BYD's PHEV strategy to gain industrial policy favor over Tesla's BEV-only approach in mid-development markets. Watch EU subsidy reallocation debates and whether Toyota's hybrid positioning becomes vindicated as 'transition realism' rather than greenwashing. Counterfactual: rapid grid decarbonization in key markets (Germany, California) that shifts the math back toward BEVs.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2607.14888v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Innocuous-Seeming Data, Latent Ideology: Ideological Generalisation in Finetuned LLMs</div>
+
+      <div class="card-byline">
+        
+        
+          Robert Graham, Edward Stevinson, Yariv Barsheshat
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Researchers demonstrate that fine-tuning LLMs on narrow, seemingly neutral datasets (economics Q&A, HR policies, food safety) causes broad ideological drift across unrelated domains—right-leaning finance training shifts criminal justice responses, workplace policy tuning alters environmental stances. The effect persists while general capabilities remain intact, meaning corporations deploying custom-tuned models for operational efficiency are unknowingly baking in coherent worldview shifts their users inherit. This isn't alignment tax or safety theater—it's structural: the optimization surface treats ideological consistency as a feature, not a bug. For Malcolm: if every enterprise runs proprietary fine-tunes, you get fragmented epistemic realities at the infrastructure layer, not the content layer.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If this holds: enterprise AI becomes ideologically balkanized by training corpus, not user base. Watch for regulatory push toward fine-tuning transparency requirements and divergence in model behavior across sectors (finance vs. healthcare vs. legal). Counterfactual: techniques emerge to isolate domain transfer without ideological leakage—monitor AI safety literature for 'alignment decoupling' methods.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">macro capital</span>
+        </div>
+        
+        <a class="card-link" href="https://www.federalreserve.gov/econres/ifdp/transmission-growth-at-risk-how-foreign-financial-vulnerabilities-shape-u-s-growth-prospects.htm" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">IFDP Paper: Transmission Growth-at-Risk: How Foreign Financial Vulnerabilities Shape U.S. Growth Prospects</div>
+
+      <div class="card-byline">
+        
+        
+        FRB: Working Papers&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Federal Reserve economists distinguish financial *conditions* (current credit tightness) from *vulnerabilities* (structural fragilities that amplify shocks) and show elevated foreign vulnerabilities predict lower U.S. growth-at-risk through trade linkages and dollar-integration channels. This operationalizes Lyn Alden's long-term debt cycle thesis with measurable transmission mechanisms: foreign dollar debt stress doesn't just correlate with U.S. slowdowns—it mechanistically drives tail risk through bilateral exposure networks. The framework gives Malcolm a quantifiable early warning system for when foreign balance sheet fragility begins compressing U.S. growth distribution, particularly useful as European banks face margin pressure and EM sovereigns refinance into higher rates.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If foreign vulnerabilities (not just conditions) are spiking while trade-weighted dollar remains elevated, U.S. growth-at-risk compresses even if domestic credit spreads look benign. Watch TreasuryDirect data on foreign official holdings unwinding as the counterfactual—forced dollar liquidation accelerates transmission.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">macro capital</span>
+        </div>
+        
+        <a class="card-link" href="https://www.federalreserve.gov/econres/ifdp/hidden-leverage-in-nonfinancial-corporations.htm" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">IFDP Paper: Hidden Leverage in Nonfinancial Corporations</div>
+
+      <div class="card-byline">
+        
+        
+        FRB: Working Papers&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Federal Reserve paper exposes structural misreporting in corporate balance sheets: 29% of public firms used hidden operating lease leverage (pre-2019 accounting change) and 12% engage in intra-period borrowing—issuing and repaying short-term debt within reporting windows to mask leverage ratios. These firms skew smaller, short-term funding dependent, and less scrutinized by institutional investors. This isn't accounting trivia—it's a mechanism showing how leveraged many 'clean' balance sheets actually are, especially relevant as rates stay higher and refinancing walls approach. The structural insight: reported corporate leverage ratios systematically understate true credit exposure in exactly the cohort most vulnerable to liquidity shocks.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If credit spreads widen or short-term funding markets tighten, watch smaller-cap names with low institutional ownership and high short-term debt rollover needs—hidden leverage unwinds violently when liquidity disappears. Counterfactual: if this cohort maintains access to commercial paper/revolver markets through stress, the thesis weakens.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://marginalrevolution.com/marginalrevolution/2026/07/trial-lawyers-lobby-against-autonomous-vehicles.html?utm_source=rss&utm_medium=rss&utm_campaign=trial-lawyers-lobby-against-autonomous-vehicles" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Trial Lawyers Lobby Against Autonomous Vehicles</div>
+
+      <div class="card-byline">
+        
+        
+        Marginal REVOLUTION&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Trial lawyers are organizing against autonomous vehicle deployment despite Waymo's 220M+ mile safety record showing measurably lower accident rates than human drivers in matched conditions. This is a textbook regulatory capture case: a concentrated interest group (personal injury bar) lobbying to protect revenue streams ($60B+ annual U.S. auto accident legal market) against a technology that would eliminate ~90% of crashes caused by human error. The mechanism is legislative/regulatory delay, not technical merit—safety isn't the constraint, political economy is. Watch state-level AV permitting bills for trial bar amendments requiring human backup drivers or liability carve-outs.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If lobbying succeeds in creating multi-year permitting delays or mandatory human oversight rules, Tesla FSD deployment timelines extend and Waymo's unit economics in new cities worsen. Counterfactual: rapid permit expansion in red states without strong trial lawyer PACs (Texas, Florida) signals regulatory arbitrage opportunities.</div>
+      
+    </article>
+    
+    
+  </section>
+  
+
+  <!-- THE LONG GAME -->
+  
+  <section>
+    <div class="section-header">The Long Game</div>
+    <div class="section-amber-underline"></div>
+
+    <article class="long-game-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">geopolitics power</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2607.09990v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Political Power in International Trade</div>
+
+      <div class="card-byline">
+        
+        
+          Ashwin Bhattathiripad, Vipin P Veetil
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">This paper operationalizes 'economic power' in trade as measured substitution asymmetry: when Country A cuts Country B, whose loss is greater? The authors run 9,480 severance simulations on 2022 global input-output data, modeling who can reallocate to alternative suppliers/buyers and at what cost under RAS balancing constraints (both sides adjust simultaneously, no producer scales beyond baseline capacity). The framework exposes structural dependencies hidden in gross trade flows—a buyer's power derives from supplier replaceability, a seller's from market replaceability. This converts geopolitical leverage narratives into testable topology: rare earth dominance, semiconductor chokepoints, energy dependencies become quantified vulnerabilities rather than vibes.</div>
+
+      
+      <div class="card-summary" style="font-style: italic; color: #888; margin-bottom: 14px;">
+        Quantifies trade coercion mechanics as Trump 2.0 tariff threats intensify and US-China decoupling accelerates—provides formal framework for asymmetric dependency narratives now dominating geopolitical discourse.
+      </div>
+      
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If substitution asymmetry > bilateral trade volume as the power metric, watch: (1) strategic stockpiling in sectors where suppliers hold >70% replacement cost advantage, (2) industrial policy targeting high-asymmetry nodes (chips, batteries, rare earths), (3) alliance formation along substitution corridors rather than ideological lines. Counterfactual: if trade wars prioritize volume over asymmetry, expect inefficient sanctions that hurt issuer more than target.</div>
+      
+    </article>
+  </section>
+  
+
+  <!-- WEALTH & STRUCTURE -->
+  
+
+  <!-- FEEDBACK -->
+  <div class="feedback-section">
+    <p class="feedback-text">
+      Reply to this email with your notes. They'll shape next week's brief.<br>
+      To log feedback manually: <code style="font-size:0.75rem; color:#555;">python -c "from feedback import append_feedback; append_feedback(input('Feedback: '))"</code>
+    </p>
+  </div>
+
+</div>
+</body>
+</html>
