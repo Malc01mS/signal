@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal — Issue #17</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0a;
+      color: #d8d8d8;
+      font-family: 'Lora', serif;
+      font-size: 16px;
+      line-height: 1.78;
+      padding: 48px 24px 80px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* MASTHEAD */
+    .masthead {
+      margin-bottom: 48px;
+    }
+
+    .masthead-wordmark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #d8d8d8;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .masthead-meta {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #6b6b6b;
+      margin-bottom: 20px;
+    }
+
+    .amber-rule {
+      height: 1px;
+      background: #c9a84c;
+      width: 100%;
+    }
+
+    /* SECTION HEADERS */
+    .section-header {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-variant: small-caps;
+      color: #6b6b6b;
+      margin-bottom: 4px;
+      margin-top: 48px;
+    }
+
+    .section-amber-underline {
+      height: 1px;
+      background: #c9a84c;
+      width: 32px;
+      margin-bottom: 24px;
+    }
+
+    /* MACRO SIGNAL */
+    .macro-signal-body {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      line-height: 1.78;
+      color: #d8d8d8;
+    }
+
+    .macro-signal-body p + p {
+      margin-top: 1.1em;
+    }
+
+    /* PICK CARDS */
+    .pick-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 22px 24px;
+      margin-bottom: 16px;
+      background: #111111;
+    }
+
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .card-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .type-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      color: #6b6b6b;
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    .pillar-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #444;
+    }
+
+    .card-link {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: #c9a84c;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .card-link:hover { text-decoration: underline; }
+
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #e8e8e8;
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+
+    .card-byline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .card-summary {
+      font-family: 'Lora', serif;
+      font-size: 0.93rem;
+      line-height: 1.72;
+      color: #c0c0c0;
+      margin-bottom: 14px;
+    }
+
+    .card-divider {
+      border: none;
+      border-top: 1px dashed #222;
+      margin-bottom: 12px;
+    }
+
+    .card-indicator {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem;
+      color: #c9a84c;
+      line-height: 1.5;
+    }
+
+    .card-indicator::before {
+      content: '→ ';
+    }
+
+    /* LONG GAME */
+    .long-game-card {
+      border: 1px solid #2a2218;
+      border-radius: 4px;
+      padding: 28px 28px;
+      margin-bottom: 16px;
+      background: #0f0e0b;
+    }
+
+    .long-game-card .card-title {
+      font-size: 1.15rem;
+    }
+
+    .long-game-card .card-summary {
+      font-size: 0.97rem;
+    }
+
+    /* WEALTH & STRUCTURE */
+    .wealth-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 18px 22px;
+      margin-bottom: 12px;
+      background: #111111;
+    }
+
+    /* FEEDBACK */
+    .feedback-section {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid #1e1e1e;
+    }
+
+    .feedback-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      line-height: 1.6;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #444;
+      font-style: italic;
+      padding: 16px 0;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 480px) {
+      body { padding: 32px 16px 60px; }
+      .masthead-wordmark { font-size: 2.4rem; }
+      .pick-card, .long-game-card { padding: 18px 16px; }
+      .card-meta-row { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead-wordmark">Signal</div>
+    <div class="masthead-meta">Issue #17 &nbsp;&middot;&nbsp; August 09, 2026</div>
+    <div class="amber-rule"></div>
+  </header>
+
+  <!-- MACRO SIGNAL -->
+  <section>
+    <div class="section-header">Macro Signal</div>
+    <div class="section-amber-underline"></div>
+    
+      <div class="macro-signal-body">
+        
+          <p>Interest rate volatility forces insurers to shorten duration, concentrating liquidity demand at the front end while draining stable long-term capital. Currency unions without fiscal transfers collapse inward during stress, as members compete for scarce risk-sharing capacity that doesn't exist at scale.</p>
+        
+          <p>All three picks show coordination infrastructure that worked under stability now operating in reverse. AI may predict exchange rates better when volatility rises, but that just means more capital chasing fewer liquid hedges. Insurers shift from patient capital to redemption risk. Currency blocs reveal they never built the shock absorbers they assumed existed. Watch sovereign-corporate basis spreads in euro periphery credit. When insurers pull duration and cross-border risk sharing freezes, that basis should blow out before rates themselves signal distress.</p>
+        
+      </div>
+    
+  </section>
+
+  <!-- HIGH-ALPHA PICKS -->
+  
+  <section>
+    <div class="section-header">High-Alpha Picks</div>
+    <div class="section-amber-underline"></div>
+
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">macro capital</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2608.00761v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">AI and Exchange Rate Predictability</div>
+
+      <div class="card-byline">
+        
+        
+          Amin Izadyar
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">This paper uses ChatGPT and DeepSeek to forecast currency returns from economic fundamentals, achieving 0.7+ Sharpe ratio on a long-short strategy—effectively solving the exchange rate disconnect puzzle that has stumped econometricians since 1983. The result suggests LLMs extract systematic signal from macro releases that traditional models miss, likely via implicit Taylor rule reasoning. If replicable, this represents a structural break: fundamentals become tradeable again, macro data releases regain alpha generation capacity, and sovereign bond/FX correlation structure shifts. Malcolm should watch: (1) whether hedge funds publishing AI-FX strategies compress this alpha within 6-12 months, (2) if central banks alter communication strategy knowing LLMs parse it better than humans, (3) whether this generalizes to other "efficient market" puzzles (equity risk premium, term structure).</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If this holds, expect rapid proliferation of AI-driven macro strategies in 2025-26, tightening bid-ask spreads in FX majors, and potential arms race in central bank communication obfuscation. Watch for replication failures or published criticisms within 90 days—standard academic timeline—as the counterfactual.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">macro capital</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2608.04925v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">From Long to Short: How Interest Rates Shape Life Insurance Markets</div>
+
+      <div class="card-byline">
+        
+        
+          Ziang Li, Derek Wenning
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Shows how post-2008 variable annuity liabilities forced insurers into negative duration gaps, causing them to raise prices and withdraw from long-term life insurance issuance—resulting in a 31% GDP decline in long-term coverage by 2023. The mechanism: insurers can't perfectly hedge interest rate risk on existing books, so they distort NEW product offerings to offset portfolio duration mismatches. This is a financial plumbing story that connects Lyn Alden's debt-cycle framework to real economy outcomes: when rates move violently, institutions rationally pull back from long-duration commitments, which compounds fragility. The paper quantifies a specific transmission channel from monetary regime change to household balance sheet resilience.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If this mechanism generalizes, watch for continued retreat from long-duration private contracts (30-year mortgages, defined benefit pensions, infrastructure finance) as rate vol persists. Counterfactual: if Treasury vol (MOVE index) stabilizes sub-100 for 18+ months, insurers should begin re-entering long-term product issuance.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">geopolitics power</span>
+        </div>
+        
+        <a class="card-link" href="https://www.palladiummag.com/2026/08/04/china-is-building-a-blue-granary/" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">China is Building a Blue Granary</div>
+
+      <div class="card-byline">
+        
+        
+        Palladium&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">China is industrializing open-ocean aquaculture at scale—massive floating farms in the South China Sea positioned as food security infrastructure but functioning as territorial markers and dual-use assets. The program mirrors land reclamation logic: economic rationalization for strategic depth. If successful, it decouples protein production from arable land constraints (Lyn Alden hard asset thesis meets maritime domain) and creates facts-on-water in contested zones. This is realpolitik through industrial policy: food sovereignty as geopolitical wedge, soft power through feed-the-world narrative, hard power through permanent presence structures.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If Blue Granary scales, watch for: (1) aquaculture tech/feed supply chains as choke points (Norwegian/Chilean tech transfer resistance), (2) UNCLOS legal challenges as farms become 'installations' claiming EEZ rights, (3) U.S. allied response via own offshore food programs (Japan/Philippines joint ventures). Counterfactual: if farms remain economically unviable without subsidy, they're pure geopolitical signaling—track state financing as commitment indicator.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">DISCUSSION</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://genesisopenmodels.anl.gov/" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">U.S. Department of Energy Launches the Genesis Open Models Initiative</div>
+
+      <div class="card-byline">
+        
+        
+        Hacker News&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">DOE announces Genesis: a public initiative to train and release open-weight foundation models using national lab supercomputing infrastructure (Frontier exascale, etc.). This isn't research models—it's explicitly positioning open AI as industrial policy, competing with closed frontier labs and implicitly with China's state-backed model development. The program structures government compute as a public good for AI development, similar to how DARPA funded early internet infrastructure. HN discussion reveals tension: some see this as necessary competitiveness infrastructure; others flag risk of bureaucratic capture and slower iteration vs. private labs.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If Genesis produces credible frontier-class models within 18 months, expect acceleration in: (1) U.S. compute buildout tied to national security framing, (2) export control tightening on model weights/architectures, (3) private labs lobbying for 'national champion' designations to access similar infrastructure. Watch for personnel moves from Anthropic/OpenAI to DOE-affiliated labs as counterfactual—if talent doesn't flow, program is bureaucratic theater.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">macro capital</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2608.04977v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">The Role of Risk Sharing in Attenuating Business Cycles Within Currency Unions</div>
+
+      <div class="card-byline">
+        
+        
+          Alberto Pavia, Christian Proebsting
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Risk-sharing mechanisms (migration, fiscal transfers, diversified income streams, credit markets) don't just smooth consumption—they cut the local multiplier itself, stabilizing income volatility at the source. Using military buildups as natural experiments, authors find risk-sharing reduces state-level consumption volatility 4x, with half that benefit coming from income stabilization rather than direct consumption smoothing. This doubles the estimated integration benefit versus standard measures. Implication: currency unions without deep risk-sharing (Eurozone) face structurally amplified regional shocks because local multipliers compound rather than dampen. The U.S. federalist architecture isn't just insurance—it's a business cycle attenuator.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If risk-sharing depth drives multiplier dampening, watch for: (1) Eurozone periphery recessions deepening faster than U.S. state-level analogs despite similar initial shocks, (2) U.S. states with weaker interstate migration (regulatory capture, housing supply constraints) exhibiting higher consumption volatility than model predicts, (3) emerging crypto-dollarized economies lacking fiscal federalism showing boom-bust amplification even under hard money. Counterfactual: if China's internal migration system tightens further, provincial cycles should desynchronize and amplify.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">macro capital</span>
+        </div>
+        
+        <a class="card-link" href="https://www.project-syndicate.org/commentary/renminbi-appreciation-first-step-toward-addressing-chinese-surpluses-by-gene-frieda-2026-08" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">The Rising Price of a Cheap Renminbi</div>
+
+      <div class="card-byline">
+        
+        
+        Project Syndicate&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">The piece argues that keeping the renminbi cheap isn't just export support—it's a political commitment device that locks China into delaying consumption rebalancing. RMB appreciation would raise household purchasing power over imports and compress margins in export sectors, forcing either wage increases or sectoral reallocation. Beijing avoids this because it would accelerate the loss of industrial employment before services can absorb labor, exposing the unfinished transition. The longer they delay, the larger the eventual adjustment shock becomes—making currency policy a lever that reveals political economy constraints, not just trade strategy.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If China does allow RMB appreciation (watch CNY crossing 7.0 sustainably), it signals either: (1) confidence in domestic consumption transition, or (2) submission to external pressure with internal instability risk rising. Counterfactual: continued CNY weakness past 7.3 = doubling down on export-led path, raising probability of capital control tightening and financial repression deepening.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">geopolitics power</span>
+        </div>
+        
+        <a class="card-link" href="https://www.palladiummag.com/2026/08/07/how-to-deal-with-iran/" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">How to Deal With Iran</div>
+
+      <div class="card-byline">
+        
+        
+        Palladium&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Palladium argues Iran has achieved unexpected military/technological parity through asymmetric capabilities (drone swarms, precision missile development, cyber operations) that render traditional US deterrence models obsolete. The piece likely challenges consensus views on Iranian vulnerability, reframing the strategic problem: instead of regime-change fantasies, the US faces a peer competitor in regional asymmetric warfare requiring negotiated equilibrium. This maps directly to realpolitik frames Malcolm uses—power projection limits, cost imposition asymmetries, and the end of post-Cold War unipolar enforcement. If correct, it suggests energy security assumptions, Middle East force posture, and Israel's operational freedom all require repricing.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If Iran's missile/drone production has industrialized sufficiently to impose sustained costs on Gulf infrastructure or Israeli air defense, watch for: (1) accelerated Abraham Accords normalization collapse, (2) oil risk premium repricing toward $100+ structural floor, (3) US pivot from containment to transactional détente. Counterfactual: successful Israeli strikes on deep Iranian nuclear/missile facilities in next 6 months would invalidate the parity thesis.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2608.03221v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Digital State Capacity</div>
+
+      <div class="card-byline">
+        
+        
+          Patrick Healy, Simon D. Angus, Paul Raschky
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Researchers construct a novel metric for state capacity by tracking government-held IPv4 address space as a proxy for deployable digital infrastructure across 150+ countries and 1,681 subnational regions (2019-2024). The thesis: IP holdings reveal which governments can actually implement policy digitally—not aspirational capability, but observable stock of networked systems. They validate it against corruption control and vaccination outcomes, showing digital infrastructure correlates with execution capacity. This operationalizes 'state capacity' debates by measuring the physical layer of governance—network addressability as institutional plumbing.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If digital state capacity determines policy execution velocity, governments with high IP/capita at Admin-1 level should outperform during infrastructure-dependent crises (pandemics, climate response). Watch IPv4 allocation shifts as leading indicator for which states can credibly deploy industrial policy AI tooling—China's provincial variance likely underreported.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2608.00818v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">The Scaling Paradox in Human-AI Collaboration</div>
+
+      <div class="card-byline">
+        
+        
+          Anyan Qi, Mengxin Wang
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">This analytical model proves that AI scaling laws—where bigger models = better performance—break down in human-AI systems when humans misperceive the AI's actual capability boundaries. Over-perception creates a *scaling paradox*: more capable AI paradoxically reduces joint system performance and firm profits because humans delegate incorrectly or fail to override when necessary. Under-perception wastes capability. The mechanism is calibration misalignment, not the AI itself. This reframes the AI deployment challenge from 'how capable is the model' to 'how accurately do operators understand its failure modes,' which has direct implications for enterprise AI ROI, liability design, and where capital should flow (interface/calibration tooling vs. raw model scale).</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If this holds, watch for: (1) enterprise AI contracts shifting from accuracy SLAs to *calibration accuracy* SLAs; (2) startup focus on 'AI confidence communication layers' rather than frontier model training; (3) regulatory frameworks mandating capability boundary transparency. Counterfactual: if scaling continues to drive adoption despite paradox, human learning/adaptation is faster than this model assumes.</div>
+      
+    </article>
+    
+    
+  </section>
+  
+
+  <!-- THE LONG GAME -->
+  
+  <section>
+    <div class="section-header">The Long Game</div>
+    <div class="section-amber-underline"></div>
+
+    <article class="long-game-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">macro capital</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2608.03703v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Preying on Leveraged ETFs</div>
+
+      <div class="card-byline">
+        
+        
+          Yinhong Zhao
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Arbitrageurs exploited Korean leveraged ETFs' mandated daily rebalancing at market close, buying ahead of the predictable flows and selling into the artificially enlarged move they created. The mechanism added 47% annualized volatility to Samsung/SK Hynix in 2026 and extracted ₩4 trillion from retail holders in eight weeks. The paper proves pre-open U.S. news reversed the next day only after these products listed, demonstrating a pure manufactured swing. Korea's fix—dispersing rebalances intraday—failed because the reference price still sized the order; switching to a two-print average halved exploitability.</div>
+
+      
+      <div class="card-summary" style="font-style: italic; color: #888; margin-bottom: 14px;">
+        First academic documentation of a microstructure exploit that manufactured systemic volatility and transferred $3B+ in wealth via predictable forced flows—a live example of Alden-style structural fragility in levered passive vehicles.
+      </div>
+      
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If leveraged passive vehicles grow as vol-targeting becomes consensus retail strategy, watch for similar microstructure parasitism in illiquid closes (crypto perpetuals, single-stock levered ETFs). Counter: if regulators mandate randomized or VWAP-based rebalances, the exploit collapses but doesn't eliminate the underlying fragility of path-dependent products in thin markets.</div>
+      
+    </article>
+  </section>
+  
+
+  <!-- WEALTH & STRUCTURE -->
+  
+
+  <!-- FEEDBACK -->
+  <div class="feedback-section">
+    <p class="feedback-text">
+      Reply to this email with your notes. They'll shape next week's brief.<br>
+      To log feedback manually: <code style="font-size:0.75rem; color:#555;">python -c "from feedback import append_feedback; append_feedback(input('Feedback: '))"</code>
+    </p>
+  </div>
+
+</div>
+</body>
+</html>
