@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal — Issue #18</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0a;
+      color: #d8d8d8;
+      font-family: 'Lora', serif;
+      font-size: 16px;
+      line-height: 1.78;
+      padding: 48px 24px 80px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* MASTHEAD */
+    .masthead {
+      margin-bottom: 48px;
+    }
+
+    .masthead-wordmark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #d8d8d8;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .masthead-meta {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #6b6b6b;
+      margin-bottom: 20px;
+    }
+
+    .amber-rule {
+      height: 1px;
+      background: #c9a84c;
+      width: 100%;
+    }
+
+    /* SECTION HEADERS */
+    .section-header {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-variant: small-caps;
+      color: #6b6b6b;
+      margin-bottom: 4px;
+      margin-top: 48px;
+    }
+
+    .section-amber-underline {
+      height: 1px;
+      background: #c9a84c;
+      width: 32px;
+      margin-bottom: 24px;
+    }
+
+    /* MACRO SIGNAL */
+    .macro-signal-body {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      line-height: 1.78;
+      color: #d8d8d8;
+    }
+
+    .macro-signal-body p + p {
+      margin-top: 1.1em;
+    }
+
+    /* PICK CARDS */
+    .pick-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 22px 24px;
+      margin-bottom: 16px;
+      background: #111111;
+    }
+
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .card-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .type-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      color: #6b6b6b;
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    .pillar-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #444;
+    }
+
+    .card-link {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: #c9a84c;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .card-link:hover { text-decoration: underline; }
+
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #e8e8e8;
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+
+    .card-byline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .card-summary {
+      font-family: 'Lora', serif;
+      font-size: 0.93rem;
+      line-height: 1.72;
+      color: #c0c0c0;
+      margin-bottom: 14px;
+    }
+
+    .card-divider {
+      border: none;
+      border-top: 1px dashed #222;
+      margin-bottom: 12px;
+    }
+
+    .card-indicator {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem;
+      color: #c9a84c;
+      line-height: 1.5;
+    }
+
+    .card-indicator::before {
+      content: '→ ';
+    }
+
+    /* LONG GAME */
+    .long-game-card {
+      border: 1px solid #2a2218;
+      border-radius: 4px;
+      padding: 28px 28px;
+      margin-bottom: 16px;
+      background: #0f0e0b;
+    }
+
+    .long-game-card .card-title {
+      font-size: 1.15rem;
+    }
+
+    .long-game-card .card-summary {
+      font-size: 0.97rem;
+    }
+
+    /* WEALTH & STRUCTURE */
+    .wealth-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 18px 22px;
+      margin-bottom: 12px;
+      background: #111111;
+    }
+
+    /* FEEDBACK */
+    .feedback-section {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid #1e1e1e;
+    }
+
+    .feedback-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      line-height: 1.6;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #444;
+      font-style: italic;
+      padding: 16px 0;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 480px) {
+      body { padding: 32px 16px 60px; }
+      .masthead-wordmark { font-size: 2.4rem; }
+      .pick-card, .long-game-card { padding: 18px 16px; }
+      .card-meta-row { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead-wordmark">Signal</div>
+    <div class="masthead-meta">Issue #18 &nbsp;&middot;&nbsp; August 16, 2026</div>
+    <div class="amber-rule"></div>
+  </header>
+
+  <!-- MACRO SIGNAL -->
+  <section>
+    <div class="section-header">Macro Signal</div>
+    <div class="section-amber-underline"></div>
+    
+      <div class="macro-signal-body">
+        
+          <p>Repo markets function as coordination infrastructure until they don't—the FEDS paper documents how government bond collateral chains concentrate stress at dealer balance sheets, which either fragment or require central bank intermediation when volatility spikes. The tertiarization paper shows services rising not from productivity but from household demand shifts and network effects, meaning service employment is structurally sticky downward even as margins compress.</p>
+        
+          <p>Both point to systems that centralize rescue functions: repo through Fed facilities, labor through fiscal support when private demand craters. Watch the spread between tri-party and bilateral repo rates during Treasury settlement failures. Widening means dealers are withdrawing coordination capacity before official stress appears, and the Fed will arrive late with liquidity that doesn't prevent the initial fracture.</p>
+        
+      </div>
+    
+  </section>
+
+  <!-- HIGH-ALPHA PICKS -->
+  
+  <section>
+    <div class="section-header">High-Alpha Picks</div>
+    <div class="section-amber-underline"></div>
+
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">macro capital</span>
+        </div>
+        
+        <a class="card-link" href="https://www.federalreserve.gov/econres/feds/government-bond-backed-repo-markets-between-resilience-and-vulnerability.htm" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">FEDS Paper: Government bond-backed repo markets: between resilience and vulnerability</div>
+
+      <div class="card-byline">
+        
+        
+        FRB: Working Papers&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Fed researchers synthesize how the efficiency mechanisms in government bond repo markets—short-term funding, dealer intermediation, collateral reuse, low haircuts—create the exact channels through which systemic stress propagates. The same features enabling liquidity provision become transmission mechanisms for rapid contagion between repo and sovereign bond markets, particularly through leverage build-up. This frames repos not as neutral plumbing but as the shock absorber/amplifier toggle in the fixed income system, directly relevant to Lyn Alden's long-term debt cycle thesis where funding market seizures precede sovereign debt crises.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If Treasury term premium continues rising while repo haircuts stay compressed, watch for non-linearity in dealer balance sheet capacity—stress will surface first in overnight general collateral rates decoupling from Fed policy rates, then in collateral velocity collapse (reduced rehypothecation chains).</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2608.08851v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Estimated Demand for Mega-Constellation Internet Service</div>
+
+      <div class="card-byline">
+        
+        
+          Akhil Rao
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Academic demand estimation (Dec 2021–Nov 2023) shows Starlink subscriber growth lagging orbital capacity expansion, with users concentrated in wealthy markets—structural mismatch between capital deployed in orbit and revenue trajectory. Critical because mega-constellation economics underpin launch market assumptions (reusable cadence justification), orbital sustainability policy debates, and SpaceX's vertical integration thesis. If demand can't absorb deployed capacity at profitable unit economics, the entire launch-as-loss-leader model compresses. Paper quantifies what podcasts/X assume but don't model: whether constellation buildout is demand-responsive or supply-push speculative.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If Starlink ARPUs stagnate while satellite deployment accelerates, watch for: (1) pricing compression in underserved markets eroding margin assumptions, (2) launch cadence slowdown as capex discipline reasserts, (3) orbital debris policy tightening as economic justification for mega-scale weakens. Counterfactual: enterprise/government contract announcements outpacing consumer growth would validate alternative revenue thesis.</div>
+      
+    </article>
+    
+    
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">macro capital</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2608.06584v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Two Types of Tertiarization: Household Demand, Production Networks, and the Rise of Services</div>
+
+      <div class="card-byline">
+        
+        
+          Li Gan
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Decomposes 76 economies' service growth (1995-2022) into household-driven vs. production-network/B2B/government demand. Finds that rising service share is negatively correlated with household orientation—only 40% of tertiarization episodes are majority-household-driven, and 77% of service economies became *less* household-oriented as they grew. The mechanism: households' purchasing power shrinks relative to corporate/state intermediation networks, so "service economy" often means complex production chains and capital reallocation, not consumer preference shift. This rewires how to read GDP composition, labor allocation, and where margin accrues in a post-industrial economy.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If this holds, high-growth service sectors (AI ops, cloud infrastructure, logistics optimization) are B2B margin plays, not consumer proxies. Watch household consumption's share of service VA—if it keeps falling while service employment rises, labor is increasingly intermediating corporate demand, not end-user preference. Counterfactual: consumer discretionary services (entertainment, personal care) outpace enterprise software and professional services in VA growth.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">macro capital</span>
+        </div>
+        
+        <a class="card-link" href="https://www.federalreserve.gov/econres/ifdp/occupational-complexity-capital-skill-complementarity-and-the-evolution-of-u-s-wage-inequality.htm" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">IFDP Paper: Occupational Complexity, Capital-Skill Complementarity, and the Evolution of U.S. Wage Inequality: A Quantitative Analysis</div>
+
+      <div class="card-byline">
+        
+        
+        FRB: Working Papers&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Federal Reserve paper documents that occupations requiring high problem-solving complexity have seen strong wage growth since 1980, but employment shifts toward those occupations have been modest—implying supply hasn't kept pace with demand. Uses a structural model showing capital equipment complements complex skills more than simple ones, creating a bifurcation mechanism. This isn't just 'skill-biased tech change' rhetoric—it's a quantitative explanation for why capital deepening (AI, automation) doesn't flatten wage inequality but intensifies it through complementarity gradients across occupation space.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If AI capex continues accelerating (Stargate, hyperscaler spend), watch wage premium expansion in complex-problem occupations (engineering, strategy, system design) vs. stagnation in routine cognitive work. Counterfactual: if AI becomes truly substitutive across complexity levels, wage compression would follow—monitor occupation-level wage dispersion data as leading indicator.</div>
+      
+    </article>
+    
+    
+  </section>
+  
+
+  <!-- THE LONG GAME -->
+  
+  <section>
+    <div class="section-header">The Long Game</div>
+    <div class="section-amber-underline"></div>
+
+    <article class="long-game-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2608.06528v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Capacity Markets for Large Loads under Supply-Chain Constraints</div>
+
+      <div class="card-byline">
+        
+        
+          Tong Liu, Jacob Mays
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Academic model analyzing two policy instruments for data centers facing shared supply-chain constraints: bring-your-own-capacity (BYOC) mandates requiring self-built power, and flexibility accreditation rewarding demand-side resources. Key finding: under efficient pricing, BYOC just shuffles who builds capacity with little welfare impact; flexibility helps modestly. But under administrative price caps (the real world), BYOC can force data centers to internalize full capacity costs, with welfare ranking flipping based on supply-chain stress severity. Under extreme stress, BYOC mandates outperform flexibility benefits. Critical spillover: unilateral BYOC in one jurisdiction crowds out capacity investment in neighboring markets—a mechanism for regulatory fragmentation risk.</div>
+
+      
+      <div class="card-summary" style="font-style: italic; color: #888; margin-bottom: 14px;">
+        Data center power demands are escalating into a first-order constraint on AI infrastructure buildout; this models the exact market mechanism by which regulators may force hyperscalers to internalize grid stress.
+      </div>
+      
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If utility regulators start imposing BYOC-style mandates (watch Texas, Virginia, Ohio PUC filings), hyperscaler capex shifts toward owned generation assets and long-term PPAs accelerate. Counterfactual: if flexibility accreditation dominates instead, watch for data center operators pitching demand-response as capacity substitute and lobbying against hard build requirements.</div>
+      
+    </article>
+  </section>
+  
+
+  <!-- WEALTH & STRUCTURE -->
+  
+  <section>
+    <div class="section-header">Wealth &amp; Structure</div>
+    <div class="section-amber-underline"></div>
+
+    
+    <article class="wealth-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2608.04925v2" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+      <div class="card-title">From Long to Short: How Interest Rates Shape Life Insurance Markets</div>
+      <div class="card-summary">Life insurers facing negative duration gaps from legacy variable annuity books responded by distorting product issuance: they raised markups on long-duration whole life and pushed short-duration term products to hedge balance sheets, cutting long-duration coverage by 12% of GDP over 18 years. This reveals a hidden transmission channel where monetary policy reshapes household risk coverage availability, not just pricing. For Malcolm: if rate cuts sustain, insurers may reverse course—watch for capacity returning to permanent life products as a contrarian signal that institutional duration demand is rebuilding.</div>
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If 10Y yields stabilize below 4%, watch whole life policy issuance volumes and credited rates at major carriers (Northwestern, MassMutual, Guardian) Q2-Q4 2025. Rising issuance + improving credited rates = institutions completing duration hedge unwind. Counterfactual: if issuance stays suppressed despite rate cuts, duration paranoia persists—implies deeper structural concern about long-term liability matching post-SVB.</div>
+      
+    </article>
+    
+  </section>
+  
+
+  <!-- FEEDBACK -->
+  <div class="feedback-section">
+    <p class="feedback-text">
+      Reply to this email with your notes. They'll shape next week's brief.<br>
+      To log feedback manually: <code style="font-size:0.75rem; color:#555;">python -c "from feedback import append_feedback; append_feedback(input('Feedback: '))"</code>
+    </p>
+  </div>
+
+</div>
+</body>
+</html>
