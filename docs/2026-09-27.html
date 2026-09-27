@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal — Issue #24</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0a;
+      color: #d8d8d8;
+      font-family: 'Lora', serif;
+      font-size: 16px;
+      line-height: 1.78;
+      padding: 48px 24px 80px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* MASTHEAD */
+    .masthead {
+      margin-bottom: 48px;
+    }
+
+    .masthead-wordmark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #d8d8d8;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .masthead-meta {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #6b6b6b;
+      margin-bottom: 20px;
+    }
+
+    .amber-rule {
+      height: 1px;
+      background: #c9a84c;
+      width: 100%;
+    }
+
+    /* SECTION HEADERS */
+    .section-header {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-variant: small-caps;
+      color: #6b6b6b;
+      margin-bottom: 4px;
+      margin-top: 48px;
+    }
+
+    .section-amber-underline {
+      height: 1px;
+      background: #c9a84c;
+      width: 32px;
+      margin-bottom: 24px;
+    }
+
+    /* MACRO SIGNAL */
+    .macro-signal-body {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      line-height: 1.78;
+      color: #d8d8d8;
+    }
+
+    .macro-signal-body p + p {
+      margin-top: 1.1em;
+    }
+
+    /* PICK CARDS */
+    .pick-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 22px 24px;
+      margin-bottom: 16px;
+      background: #111111;
+    }
+
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .card-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .type-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      color: #6b6b6b;
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    .pillar-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #444;
+    }
+
+    .card-link {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: #c9a84c;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .card-link:hover { text-decoration: underline; }
+
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #e8e8e8;
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+
+    .card-byline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .card-summary {
+      font-family: 'Lora', serif;
+      font-size: 0.93rem;
+      line-height: 1.72;
+      color: #c0c0c0;
+      margin-bottom: 14px;
+    }
+
+    .card-divider {
+      border: none;
+      border-top: 1px dashed #222;
+      margin-bottom: 12px;
+    }
+
+    .card-indicator {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem;
+      color: #c9a84c;
+      line-height: 1.5;
+    }
+
+    .card-indicator::before {
+      content: '→ ';
+    }
+
+    /* LONG GAME */
+    .long-game-card {
+      border: 1px solid #2a2218;
+      border-radius: 4px;
+      padding: 28px 28px;
+      margin-bottom: 16px;
+      background: #0f0e0b;
+    }
+
+    .long-game-card .card-title {
+      font-size: 1.15rem;
+    }
+
+    .long-game-card .card-summary {
+      font-size: 0.97rem;
+    }
+
+    /* WEALTH & STRUCTURE */
+    .wealth-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 18px 22px;
+      margin-bottom: 12px;
+      background: #111111;
+    }
+
+    /* FEEDBACK */
+    .feedback-section {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid #1e1e1e;
+    }
+
+    .feedback-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      line-height: 1.6;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #444;
+      font-style: italic;
+      padding: 16px 0;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 480px) {
+      body { padding: 32px 16px 60px; }
+      .masthead-wordmark { font-size: 2.4rem; }
+      .pick-card, .long-game-card { padding: 18px 16px; }
+      .card-meta-row { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead-wordmark">Signal</div>
+    <div class="masthead-meta">Issue #24 &nbsp;&middot;&nbsp; September 27, 2026</div>
+    <div class="amber-rule"></div>
+  </header>
+
+  <!-- MACRO SIGNAL -->
+  <section>
+    <div class="section-header">Macro Signal</div>
+    <div class="section-amber-underline"></div>
+    
+      <div class="macro-signal-body">
+        
+          <p>Credit systems centralise when loss recognition becomes mandatory. Banks respond to imposed transparency not by pricing risk more accurately, but by withdrawing from relationships they previously managed through discretion and local knowledge.</p>
+        
+          <p>The CECL paper documents exactly this: forward-looking loss provisions forced banks to ration credit to riskier borrowers, collapsing lending relationships rather than re-pricing them. The Fed's structural vulnerability paper and CBDC credit architecture proposals both emerge from the same revealed fragility—when coordination depends on bank balance sheet capacity, stress doesn't redistribute credit, it eliminates it. The implication is directional: as capital requirements tighten or volatility spikes, watch credit availability to non-investment grade borrowers. It won't get expensive; it will disappear. Position for discrete withdrawal, not spread widening.</p>
+        
+      </div>
+    
+  </section>
+
+  <!-- HIGH-ALPHA PICKS -->
+  
+  <section>
+    <div class="section-header">High-Alpha Picks</div>
+    <div class="section-amber-underline"></div>
+
+    
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">macro capital</span>
+        </div>
+        
+        <a class="card-link" href="https://www.federalreserve.gov/econres/feds/beyond-financial-conditions-measuring-structural-vulnerabilities-in-the-us-financial-system.htm" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">FEDS Paper: Beyond Financial Conditions: Measuring Structural Vulnerabilities in the U.S. Financial System</div>
+
+      <div class="card-byline">
+        
+        
+        FRB: Working Papers&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Fed economists construct a Financial Vulnerability Index (FVI) that inverts typical financial stress measures: it rises during calm periods as structural fragility accumulates (leverage, maturity mismatches, interconnectedness), then falls when crises materialize. Unlike the Financial Conditions Index which spikes during turmoil, FVI demonstrates that when structural vulnerabilities are elevated, identical shocks produce 2–3x larger consumption/investment declines. This operationalizes the Minsky/Alden debt cycle insight: danger peaks when markets feel safest, not when VIX is screaming.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If FVI methodology gains traction, watch Fed communication shift from "financial conditions are accommodative" to vulnerability-stock warnings during low-vol environments. Counterfactual: if FVI stays siloed in research without policy adoption, current regime continues using backward-looking stress indicators until the next unhedged cascade.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2609.26861v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Rule-Based Pricing Algorithms and Market Outcomes: An Experimental Study</div>
+
+      <div class="card-byline">
+        
+        
+          Adrian Hillenbrand, Hans-Theo Normann, Matthias Potarca
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Controlled experiment shows rule-based pricing algorithms—dashboards where humans configure automated repricing—systematically elevate market prices not through sophisticated collusion but through structural nudges: price war warnings, pre-set cooperative strategies, and LLM advice all shift starting prices higher and bias algorithm design toward tacit coordination. This isn't theory—it's lab proof that interface design choices by platform builders directly engineer quasi-cartel outcomes without explicit agreement. The mechanism matters because it's unregulated, scalable across commerce, and operates below antitrust radar since no humans collude.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If regulators treat algorithm design tools as architecturally collusive, expect mandatory randomization features or adversarial testing requirements for repricing platforms. Watch whether Amazon/Walmart impose design constraints on third-party seller tools as preemptive compliance—absence signals they're betting enforcement stays light.</div>
+      
+    </article>
+    
+    
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">macro capital</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2609.27727v2" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Sovereign Grassroots Currencies: A CBDC Architecture for Credit and Monetary Policy (Full Version)</div>
+
+      <div class="card-byline">
+        
+        
+          Ehud Shapiro
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">This paper presents a CBDC design that inverts the traditional two-tier model: it allows any entity to issue non-sovereign 'grassroots coins' redeemable 1:1 in sovereign digital currency, effectively embedding private credit creation directly into the CBDC layer rather than isolating it in commercial banks. It addresses the deposit-flight problem by making credit and liquidity fungible with central bank money at the base layer, and adds grassroots bonds as the instrument through which the central bank conducts monetary policy. If implemented, this would fundamentally restructure the bank/central-bank boundary—credit creation becomes permission-less but collateralized, and monetary policy transmission bypasses traditional reserve mechanisms. For Malcolm: this is a potential rewrite of how fiat plumbing works in a digital regime, with implications for bank equity value, stablecoin regulation, and whether decentralized credit can coexist with sovereign money without disintermediation risk.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If grassroots CBDC designs gain traction in Fed/ECB pilots, watch for regulatory frameworks that allow non-bank credit issuance against CBDC collateral—this would compress net interest margins and accelerate disintermediation. Counterfactual: if CBDCs remain purely retail deposit substitutes (China/Bahamas model), traditional bank structure persists.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2609.30058v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Can Labor Markets Function in the Age of AI? The Evaluation Bottleneck in Hiring</div>
+
+      <div class="card-byline">
+        
+        
+          Itai Ashlagi, Ramesh Johari, Jon Kleinberg
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Stanford/Cornell researchers model how AI application tools create an adverse selection spiral: as everyone optimizes materials equally well, firms rationally retreat to coarse proxies (years of experience, brand-name schools). The losers are inexperienced-but-compatible candidates who previously relied on distinctive signals to differentiate from peers. Result: screening costs rise, false negatives increase, and labor market matching efficiency degrades—even as application volume explodes. The mechanism is Bayesian updating under noise inflation, not just 'spam problem.'</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If true, watch for: (1) firms adding structured work-sample tests earlier in funnel (GitHub portfolios, live case rounds), (2) credential inflation accelerating in AI/tech roles despite talent surplus, (3) bootcamp/alt-credentialing models struggling more than expected because they can't substitute for experience signal. Counterfactual: application volume growth decelerates if tools auto-filter themselves.</div>
+      
+    </article>
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2609.30028v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">How does Adversarial Influence Scale in Multi-Agent Systems?</div>
+
+      <div class="card-byline">
+        
+        
+          Addison J. Wu, Jasin Cekinmez, Michel Liao
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">LLM agents in multi-agent deliberation defect to incorrect answers at rates linearly proportional to deceiver prevalence, even when deceivers remain a minority—unlike human conformity studies where majorities are required to sway consensus. The key variable is proportion, not absolute count. Counterintuitively, allowing adversarial agents to coordinate privately reduces their effectiveness. This matters because it quantifies how fragile emerging multi-agent reasoning systems are to bad actors, whether through prompt injection, misaligned objectives, or external compromise—and it happens at minority thresholds that existing security models don't account for.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If this generalizes beyond research settings, multi-agent AI architectures (customer service orchestration, code review chains, consensus-based reasoning) will require adversarial-minority hardening before scaling. Watch for: (1) enterprise AI vendors quietly limiting agent-to-agent communication topologies, (2) research into cryptographic commitment schemes for agent outputs, (3) insurance/liability frameworks that price 'agent defection risk' into SLAs.</div>
+      
+    </article>
+    
+    
+    
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">macro capital</span>
+        </div>
+        
+        <a class="card-link" href="https://www.federalreserve.gov/econres/feds/how-did-cecl-affect-bank-lending.htm" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">FEDS Paper: How Did CECL Affect Bank Lending?</div>
+
+      <div class="card-byline">
+        
+        
+        FRB: Working Papers&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">Fed researchers found CECL accounting rules (forcing banks to provision for expected losses upfront rather than when incurred) function mechanistically like capital requirements: higher allowances = costlier funding = reduced loan supply. Within their sample, CECL adoption cut loan growth by ~$77B. This isn't about compliance burden—it's a structural channel through which accounting treatment directly throttles credit creation. The causal chain: forward-looking loss recognition → higher reserves → constrained capital ratios → tighter lending. Validates that regulatory plumbing (not just headline capital ratios) governs credit cycles.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If CECL's capital-equivalence holds, regional bank loan growth remains structurally depressed relative to pre-2020 unless equity raises/retained earnings accelerate. Watch for regulatory rollback signaling or Basel III endgame changes that could offset CECL drag—counterfactual is large banks gaining share if smaller lenders stay capital-constrained.</div>
+      
+    </article>
+    
+    
+  </section>
+  
+
+  <!-- THE LONG GAME -->
+  
+  <section>
+    <div class="section-header">The Long Game</div>
+    <div class="section-amber-underline"></div>
+
+    <article class="long-game-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2609.28681v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Improving Today, Narrowing Tomorrow: Collective Learning, Diversity, and Generativity</div>
+
+      <div class="card-byline">
+        
+        
+          Esteve Almirall, Chris Tucci
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">Model shows collective learning creates a generativity chain: population diversity feeds heterogeneous experience → abstraction into reusable practices (JIT, freemium, MoE) → local judgment adapts them. The paradox: shared templates improve current performance while narrowing the solution space available for future discovery. Collective learning homogenizes only when abstraction outpaces local variation in judgment. Directly relevant to AI training corpus debates, but mechanism applies to any field extracting portable practices from leader configurations.</div>
+
+      
+      <div class="card-summary" style="font-style: italic; color: #888; margin-bottom: 14px;">
+        GenAI homogenization concerns are entering strategy discourse as Claude/GPT outputs converge; this frames the mechanism behind why collective learning patterns (not just LLMs) create tomorrow's discovery bottlenecks.
+      </div>
+      
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If GenAI corpus convergence continues without deliberate diversity injection (synthetic data, adversarial training, niche corpora), watch for innovation clustering around narrow template spaces by 2027–2028. Counterfactual: firms maintaining proprietary training pipelines or hybrid human-AI workflows preserve option value in adjacent search spaces.</div>
+      
+    </article>
+  </section>
+  
+
+  <!-- WEALTH & STRUCTURE -->
+  
+  <section>
+    <div class="section-header">Wealth &amp; Structure</div>
+    <div class="section-amber-underline"></div>
+
+    
+    <article class="wealth-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2609.22612v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+      <div class="card-title">Asymptotic Invariance of Kelly Allocation Under Power-Law Asset Dynamics: Evidence from Bitcoin</div>
+      <div class="card-summary">This paper proves that when an asset follows power-law price growth (P(t) = At^α) and variance decay (σ²(t) ∝ t^(-2γ)), the Kelly optimal allocation becomes time-invariant only when γ = 0.5. Bitcoin empirically exhibits γ ≈ 0.53 over 4–9 year windows, meaning its Kelly fraction is nearly constant across market regimes—a structural argument for Bitcoin as a Kelly-compatible asymptotic asset in a portfolio. The framework mathematically links network growth, liquidity expansion, and volatility compression into a unified scaling law. This shifts Bitcoin positioning from "speculative tech" to "power-law endowment" under log-optimal capital allocation.</div>
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If γ remains near 0.5 as Bitcoin matures further, Kelly-optimal position sizing converges toward a stable allocation independent of cycle timing. Watch: if institutional flows push γ below 0.45 (faster volatility collapse than predicted), the Kelly fraction falls over time—signaling overfinancialisation relative to network fundamentals. Counterfactual: if network adoption stalls, γ drifts toward 0, and Kelly sizing becomes explosive (unstable).</div>
+      
+    </article>
+    
+    <article class="wealth-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2609.24181v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+      <div class="card-title">Firm Valuation When AI Shapes the Business Model: A Milestone-Based Real-Options Framework for the AI Valuation Uncertainty Problem</div>
+      <div class="card-summary">Paper formalizes what DCF compresses: AI integration creates option chains that standard methods aggregate into opaque discount rates. Authors build taxonomy (Integrators vs. Providers; Integration Depth Levels) and milestone-gated real-options overlay splitting AI firm value into five auditable components, each with structured probability inputs via pairwise comparisons. Applied to AI-native SaaS, the framework produces coherent valuation bands tied to specific technical/commercial gates rather than hand-waved multiples. For Malcolm: this is the analytical structure missing from current AI equity positioning—watch for adoption by growth equity/PE shops needing defensible AI company marks.</div>
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If adopted, expect bifurcation in private AI valuations: firms able to demonstrate milestone progression command premium multiples; those without auditable option trees get haircut to commodity-service levels. Watch Sequoia/a16z follow-on round structures for milestone-gating language as counterfactual to blended-risk pricing.</div>
+      
+    </article>
+    
+    <article class="wealth-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+        </div>
+        
+        <a class="card-link" href="https://www.palladiummag.com/2026/09/22/wealth-taxes-could-kill-privately-owned-companies/" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+      <div class="card-title">Wealth Taxes Could Kill Privately-Owned Companies</div>
+      <div class="card-summary">Palladium argues wealth taxes implicitly destroy private company governance structures by forcing liquidity events to pay tax on illiquid, mark-to-model assets. The mechanism: if a founder holds equity valued at $500M but has minimal cash, a 2% annual wealth tax requires $10M/year in cash, necessitating either selling equity (diluting control), taking debt against the business (constraining operations), or forced IPO/sale (eliminating private governance optionality). This isn't just a tax compliance burden—it's a forced conversion of governance structure from private/long-term to public/short-term, killing the organizational form that built SpaceX, Stripe, Koch Industries, and most compounding machines. The real confiscation isn't the tax rate; it's the destruction of the property right to govern privately.</div>
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If wealth tax proposals gain traction, expect accelerated private company exits before implementation deadlines (2017 tax reform playback at scale), increased use of offshore holding structures, and bifurcation where only companies generating high cash-to-valuation can stay private long-term. Watch Delaware trust law changes and family office structuring innovation as leading indicators of wealth defense architecture evolving.</div>
+      
+    </article>
+    
+  </section>
+  
+
+  <!-- FEEDBACK -->
+  <div class="feedback-section">
+    <p class="feedback-text">
+      Reply to this email with your notes. They'll shape next week's brief.<br>
+      To log feedback manually: <code style="font-size:0.75rem; color:#555;">python -c "from feedback import append_feedback; append_feedback(input('Feedback: '))"</code>
+    </p>
+  </div>
+
+</div>
+</body>
+</html>
