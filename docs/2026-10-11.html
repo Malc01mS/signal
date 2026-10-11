@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal — Issue #26</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0a;
+      color: #d8d8d8;
+      font-family: 'Lora', serif;
+      font-size: 16px;
+      line-height: 1.78;
+      padding: 48px 24px 80px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* MASTHEAD */
+    .masthead {
+      margin-bottom: 48px;
+    }
+
+    .masthead-wordmark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #d8d8d8;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .masthead-meta {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #6b6b6b;
+      margin-bottom: 20px;
+    }
+
+    .amber-rule {
+      height: 1px;
+      background: #c9a84c;
+      width: 100%;
+    }
+
+    /* SECTION HEADERS */
+    .section-header {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-variant: small-caps;
+      color: #6b6b6b;
+      margin-bottom: 4px;
+      margin-top: 48px;
+    }
+
+    .section-amber-underline {
+      height: 1px;
+      background: #c9a84c;
+      width: 32px;
+      margin-bottom: 24px;
+    }
+
+    /* MACRO SIGNAL */
+    .macro-signal-body {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      line-height: 1.78;
+      color: #d8d8d8;
+    }
+
+    .macro-signal-body p + p {
+      margin-top: 1.1em;
+    }
+
+    /* PICK CARDS */
+    .pick-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 22px 24px;
+      margin-bottom: 16px;
+      background: #111111;
+    }
+
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .card-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .type-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      color: #6b6b6b;
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    .pillar-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #444;
+    }
+
+    .card-link {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: #c9a84c;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .card-link:hover { text-decoration: underline; }
+
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #e8e8e8;
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+
+    .card-byline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .card-summary {
+      font-family: 'Lora', serif;
+      font-size: 0.93rem;
+      line-height: 1.72;
+      color: #c0c0c0;
+      margin-bottom: 14px;
+    }
+
+    .card-divider {
+      border: none;
+      border-top: 1px dashed #222;
+      margin-bottom: 12px;
+    }
+
+    .card-indicator {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem;
+      color: #c9a84c;
+      line-height: 1.5;
+    }
+
+    .card-indicator::before {
+      content: '→ ';
+    }
+
+    /* LONG GAME */
+    .long-game-card {
+      border: 1px solid #2a2218;
+      border-radius: 4px;
+      padding: 28px 28px;
+      margin-bottom: 16px;
+      background: #0f0e0b;
+    }
+
+    .long-game-card .card-title {
+      font-size: 1.15rem;
+    }
+
+    .long-game-card .card-summary {
+      font-size: 0.97rem;
+    }
+
+    /* WEALTH & STRUCTURE */
+    .wealth-card {
+      border: 1px solid #1e1e1e;
+      border-radius: 4px;
+      padding: 18px 22px;
+      margin-bottom: 12px;
+      background: #111111;
+    }
+
+    /* FEEDBACK */
+    .feedback-section {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid #1e1e1e;
+    }
+
+    .feedback-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #6b6b6b;
+      letter-spacing: 0.02em;
+      line-height: 1.6;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: #444;
+      font-style: italic;
+      padding: 16px 0;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 480px) {
+      body { padding: 32px 16px 60px; }
+      .masthead-wordmark { font-size: 2.4rem; }
+      .pick-card, .long-game-card { padding: 18px 16px; }
+      .card-meta-row { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead-wordmark">Signal</div>
+    <div class="masthead-meta">Issue #26 &nbsp;&middot;&nbsp; October 11, 2026</div>
+    <div class="amber-rule"></div>
+  </header>
+
+  <!-- MACRO SIGNAL -->
+  <section>
+    <div class="section-header">Macro Signal</div>
+    <div class="section-amber-underline"></div>
+    
+      <p class="empty-state">No macro signal generated this week.</p>
+    
+  </section>
+
+  <!-- HIGH-ALPHA PICKS -->
+  
+  <section>
+    <div class="section-header">High-Alpha Picks</div>
+    <div class="section-amber-underline"></div>
+
+    
+    
+    <article class="pick-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+          <span class="pillar-label">geopolitics power</span>
+        </div>
+        
+        <a class="card-link" href="https://www.palladiummag.com/2026/10/06/rationalism-and-divergent-sinomodernity/" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Rationalism and Divergent Sinomodernity</div>
+
+      <div class="card-byline">
+        
+        
+        Palladium&nbsp;&middot;&nbsp;
+        
+      </div>
+
+      <div class="card-summary">American AI forecasters consistently misjudge Chinese capabilities because they project Western rationalist assumptions onto fundamentally divergent institutional structures. China's state-directed development follows different optimization functions than market-driven tech evolution—centralized compute allocation, talent channeling through ideological filters, and strategic patience that doesn't register in Silicon Valley planning horizons. The piece argues Western forecasters mistake China's different modernity pathway for incompetence or copying, missing how planned capacity buildup in semiconductors, data infrastructure, and applied AI creates asymmetric advantages in deployment speed once technical thresholds are crossed. For Malcolm: this is the mechanism explaining why consensus AI race framing may be structurally wrong about the competitor it's racing.</div>
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If China's institutional model enables faster scaled deployment post-breakthrough (rather than breakthrough itself), watch for: (1) Western narrative shift from 'China can't innovate' to 'unfair advantages' once parity emerges, (2) semiconductor export controls tightening as the real strategic choke point, (3) Tesla/foreign manufacturers facing pressure as China weaponizes deployment infrastructure access. Counterfactual: continued Chinese reliance on Western foundational models would validate current forecasting assumptions.</div>
+      
+    </article>
+    
+    
+    
+    
+  </section>
+  
+
+  <!-- THE LONG GAME -->
+  
+  <section>
+    <div class="section-header">The Long Game</div>
+    <div class="section-amber-underline"></div>
+
+    <article class="long-game-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">PAPER</span>
+          <span class="pillar-label">tech industry</span>
+        </div>
+        
+        <a class="card-link" href="https://arxiv.org/abs/2610.11093v1" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+
+      <div class="card-title">Risk Ceilings and Development Deadlines: Pacing AI under Uncertain Safety Productivity</div>
+
+      <div class="card-byline">
+        
+        
+          Li Gan
+          &nbsp;&middot;&nbsp;
+        
+        arXiv&nbsp;&middot;&nbsp;
+        2026
+      </div>
+
+      <div class="card-summary">This paper proves that a regulator can only guarantee both a safety ceiling AND a development timeline if they can rule out 'weak' safety research productivity ex-ante—otherwise one promise must break. The optimal strategy ('learn-then-replay') allocates spare compute to safety research first, building a minimum knowledge stock before development begins, requiring only 3.3% more safety productivity than the theoretical floor. Fixed compute-split rules (e.g., mandating 20% safety compute) lock in timelines but not risk levels. The customer (society) pays for certainty via slower deployment, and the mechanism exposes why current voluntary commitments from frontier labs are structurally non-binding without productivity disclosure.</div>
+
+      
+      <div class="card-summary" style="font-style: italic; color: #888; margin-bottom: 14px;">
+        Published January 2025, directly engages the live regulatory debate around AI safety commitments as governments (UK AI Safety Institute, Biden EO framework) attempt to formalize enforceable constraints without stalling frontier development.
+      </div>
+      
+
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If regulatory frameworks adopt this logic, watch for: (1) mandatory safety R&D timelines *before* scaling runs begin (pre-training pauses), (2) demands for auditable safety productivity benchmarks as preconditions for compute allocation approvals, (3) frontier labs front-loading interpretability/alignment capex rather than parallelizing it with capability scaling. Counterfactual: if labs continue integrated scaling (simultaneous capability + safety), it signals either regulatory capture or belief that productivity can't be credibly measured—making enforceable ceilings impossible.</div>
+      
+    </article>
+  </section>
+  
+
+  <!-- WEALTH & STRUCTURE -->
+  
+  <section>
+    <div class="section-header">Wealth &amp; Structure</div>
+    <div class="section-amber-underline"></div>
+
+    
+    <article class="wealth-card">
+      <div class="card-meta-row">
+        <div class="card-meta-left">
+          <span class="type-badge">ESSAY</span>
+        </div>
+        
+        <a class="card-link" href="https://www.project-syndicate.org/commentary/new-africa-credit-rating-agency-could-mark-turning-point-for-the-continent-by-hannah-wanjie-ryder-2026-10?utm_source=rss&utm_medium=feed&utm_campaign=main&utm_content=en" target="_blank" rel="noopener">Read →</a>
+        
+      </div>
+      <div class="card-title">Rating Africa on Its Own Terms</div>
+      <div class="card-summary">New Africa Credit Rating Agency challenges Western monopoly (S&P, Moody's, Fitch) whose methodology systematically overprices African sovereign risk by ignoring institutional features specific to these economies. This is financial architecture competition, not charity—African nations pay 2–8% higher yields than fundamentals warrant because ratings use Western institutional templates. If successful, ACRA creates pricing arbitrage opportunity and demonstrates how credit assessment infrastructure itself is geopolitical leverage. Follows Belt & Road playbook: build parallel rails when existing system structurally excludes you.</div>
+      
+      <hr class="card-divider">
+      <div class="card-indicator">If ACRA gains bond market credibility, watch African Eurobond spreads vs. ACRA ratings for divergence from Big Three assessments. Counterfactual: Western rating agencies adjust Africa methodology to defend market share before losing pricing power.</div>
+      
+    </article>
+    
+  </section>
+  
+
+  <!-- FEEDBACK -->
+  <div class="feedback-section">
+    <p class="feedback-text">
+      Reply to this email with your notes. They'll shape next week's brief.<br>
+      To log feedback manually: <code style="font-size:0.75rem; color:#555;">python -c "from feedback import append_feedback; append_feedback(input('Feedback: '))"</code>
+    </p>
+  </div>
+
+</div>
+</body>
+</html>
